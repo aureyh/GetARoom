@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>GetARoom</title>
+  <!-- Custom theme made from ThemeRoller-->
+  <link rel="stylesheet" href="themes/FirstTheme.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+
+<!-- Install Jqery mobile to site-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body> <!---->
+<!-- All pages are within Div tags-->
+<div data-role="page" id="home" data-theme="d">
+  <div data-role="header">
+    <h1>Get A Room</h1>
+
+</div>
+
+<div data-role="main" class="ui-content">
+  <h1>Get A Room: Search</h1>
+
+
+    <form method="post" action="/action_page_post.php">
+
+      <!--Time Select-->
+      <fieldset class="ui-field-contain">
+    <label for="time">Desired Time</label>
+    <input type="time" name="time" id="time">
+  </fieldset>
+      <!--Date select-->
+      <fieldset class="ui-field-contain">
+    <label for="date">Desired Date</label>
+    <input type="date" name="date" id="date">
+  </fieldset>
+
+
+  <!--Building Filter-->
+
+    <fieldset class="ui-field-contain">
+      <label for="room">Filter Building</label>
+      <select name="building" id="building">
+        <option value="all">all</option>
+        <option value="UNC">UNC</option>
+        <option value="FIPKE">FIPKE</option>
+        <option value="SCI">SCI</option>
+        <option value="LIB">LIB</option>
+        <option value="ART">ART</option>
+        <option value="EME">EME</option>
+      </select>
+    </fieldset>
+
+    <!--Room Type-->
+    <fieldset class="ui-field-contain">
+      <label for="room">Filter Room Type</label>
+      <select name="type" id="type">
+        <option value="any">any</option>
+        <option value="comp labs">Computer labs</option>
+        <option value="classes">Class Rooms</option>
+
+      </select>
+    </fieldset>
+
+
+  <!--Search Button-->
+
+  <a href="#results" class="ui-btn" name="search" id="search">Search</a>
+
+</form>
+
+</div>
+
+<div data-role="footer">
+  <h2>&copy; GetARoom2017 </h2>
+</div>
+
+</div>
+
+
+<!--Second page-->
+<div data-role="page" id="results"  data-theme="d"> <!--Pages are given an id for linking-->
+<div data-role="header">
+  <h1>Get A Room</h1>
+
+</div>
+
+<div data-role="main" class="ui-content">
+<h1>Get A Room: Results</h1>
+
+<a href="#home" class="ui-btn" name="return" id="return">Return</a>
+</div>
+
+<div data-role="footer">
+<h2>&copy; GetARoom2017 </h2>
+</div>
+</div>
+
+
+
+
+
+
+</body>
+</html>
