@@ -18,7 +18,15 @@
 <div data-role="page" id="home" data-theme="d">
   <div data-role="header">
     <h1>Get A Room</h1>
-
+	
+	<!--Adds nav bar-->
+<div data-role="navbar">
+<ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
+<li><a href="#info" data-icon="grid">Info</a></li>
+</ul>
+</div>
+	
+	
 </div>
 
 <div data-role="main" class="ui-content">
@@ -81,7 +89,7 @@
 </div>
 
 
-<!--Second page-->
+<!--results page-->
 <div data-role="page" id="results"  data-theme="d"> <!--Pages are given an id for linking-->
 <div data-role="header">
   <h1>Get A Room</h1>
@@ -99,8 +107,26 @@
 </div>
 </div>
 
+<!--Info page-->
+<div data-role="page" id="info"  data-theme="d"> <!--Pages are given an id for linking-->
+<div data-role="header">
+  <h1>Get A Room</h1>
+
+</div>
+
+<div data-role="main" class="ui-content">
+<h1>Get A Room: Info</h1>
+
+<p>info goes here.</p>
 
 
+<a href="#home" class="ui-btn" name="return" id="return">Return</a>
+</div>
+
+<div data-role="footer">
+<h2>&copy; GetARoom2017 </h2>
+</div>
+</div>
 
 
 
