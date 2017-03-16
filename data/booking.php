@@ -61,8 +61,8 @@ foreach ($sqlArr as $date=>$date_array) {
     for($i = 0; $i < ($size/2); $i++){
       $start = $location_array[$i*2];
       $end = $location_array[($i*2) + 1];
-      $sql = "INSERT INTO BOOKINGS (dates, startTime, endTime)
-      VALUES ($date, $start, $end)";
+      $sql = "INSERT INTO BOOKINGS (dates, location, startTime, endTime)
+      VALUES ($date, '$location',$start, $end)";
       if ($conn->query($sql) === TRUE) {
       }else{
         echo "Error: " . $sql . "<br>" . $conn->error;

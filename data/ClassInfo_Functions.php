@@ -52,7 +52,7 @@ function getSQLARR($weekarr,$dayarr,&$sql,$arr){
 	foreach($weekarr as $weekarrnum){
     foreach($dayarr as $daynum){
 
-      if(empty($sql["$weekarrnum.$daynum"][$arr[1]])){
+      if(!isset($sql["$weekarrnum.$daynum"][$arr[1]])){
         $sql["$weekarrnum.$daynum"][$arr[1]] = array($startTIME,$endTIME);
 
     } else{
@@ -69,7 +69,7 @@ function getSQLARR($weekarr,$dayarr,&$sql,$arr){
 
 function getDayArr($str, &$dayarr){
   if (strpos($str,';') !== FALSE){
-    $stretchsmcol = explode(";", $str, 3);
+    $stretchsmcol = explode(";", $str, 8);
     foreach($stretchsmcol as $substr){
     $dayarr[count($dayarr)] = convertDayToNum($substr);
   }}else{

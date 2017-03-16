@@ -19,13 +19,16 @@ include("ClassInfo_Functions.php"); #includes all functions used above.
     fclose($csv); //shouldn't need file at this point
     }
     /*every table's title is week+day concatenation*/
-    for($i = 0; $i <= 52; $i++){
+    /*for($i = 0; $i <= 52; $i++){
       for($j = 0; $j <= 7; $j++){
         $date["$i.$j"] = array(0 => "$i.$j");
-        $sqlArr["$i.$j"] = array(); /*will become a 3 dimensional array.
-        first by date. second by classroom. third by time.*/
+        $sqlArr["$i.$j"] = array();
       }
-    }
+    }*/
+
+    /*will become a 3 dimensional array.
+    first by date. second by classroom. third by time.*/
+
     /*week 1 sarts at august 22*/
     /*
     2 aug 29
@@ -33,10 +36,10 @@ include("ClassInfo_Functions.php"); #includes all functions used above.
     */
 
     foreach($holder as $arr){
-      $weekarr = array(); #array of weeks for given line.
-      $dayarr = array(); #array of days for given line.
       /*checks for existence of keywords in string.*/
       #takes string, and array of weeks to change
+      $weekarr = array(); #array of weeks for given line.
+      $dayarr = array(); #array of days for given line.
       getWeekArr($arr[0],$weekarr);
       getDayArr($arr[2],$dayarr);
       getSQLARR($weekarr,$dayarr,$sqlArr,$arr);
