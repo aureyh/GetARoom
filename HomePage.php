@@ -86,13 +86,7 @@
   <h2>&copy; GetARoom2017 </h2>
 </div>
 
-<!--php test-->
-<div>
-<?php
-include("data/test.php");
 
-?>
-</div>
 
 </div>
 
@@ -107,7 +101,19 @@ include("data/test.php");
 <div data-role="main" class="ui-content">
 <h1>Get A Room: Results</h1>
 
+<!--Return button to go to homepage-->
 <a href="#home" class="ui-btn" name="return" id="return">Return</a>
+
+<!--php test-->
+<div>
+<?php
+include("data/booktest.php");
+
+?>
+</div>
+
+
+
 </div>
 
 <div data-role="footer">
