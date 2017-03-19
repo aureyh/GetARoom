@@ -1,7 +1,7 @@
 //This file is for initializing a database and creating the booking table
 
 <?php
-include 'COSC310.php';
+include 'data/COSC310.php';
 
 //Change username and password as needed
 $servername = "localhost";

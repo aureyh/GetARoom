@@ -107,7 +107,8 @@
 <!--php test-->
 <div>
 <?php
-include("data/booktest.php");
+
+include("data/booking.php");
 
 ?>
 </div>
