@@ -2,6 +2,8 @@
 
 <html>
 <head>
+  <!--might allow for better scaling for mobile.-->
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <title>GetARoom</title>
   <!-- Custom theme made from ThemeRoller-->
   <link rel="stylesheet" href="themes/FirstTheme.css" />
@@ -37,14 +39,41 @@
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
-    <label for="time">Desired Time</label>
-    <input type="time" name="time" id="time">
+    <label for="start">Start Time</label>
+    <input type="time" name="start" id="start" >
+    <label for="end">End Time</label>
+    <input type="time" name="end" id="end">
   </fieldset>
+
       <!--Date select-->
       <fieldset class="ui-field-contain">
     <label for="date">Desired Date</label>
     <input type="date" name="date" id="date">
   </fieldset>
+
+  <!--script for setting time-->
+  <script>
+  $(document).ready(function() { //runs a function before site opens
+var fullDate = new Date(); //creates a date object
+//gets date and time from date object
+var time = fullDate.getHours()+':'+fullDate.getMinutes();
+var month = fullDate.getMonth()+1;
+if(month<10){ //month normally is from 0-11 so formats it to 01-12
+var month = ""+0+month;}
+var date = fullDate.getFullYear()+"-"+month+"-"+fullDate.getDate();
+
+//fill the date and time inputs to the varaibles
+$("#start").val(time);
+$("#date").val(date);
+
+
+
+        var date = (now.getMonth()+1)+'/'+now.getDate()+'/'+(now.getFullYear());
+
+
+  });
+  </script>
+
 
 
   <!--Building Filter-->
@@ -104,11 +133,13 @@
 <!--Return button to go to homepage-->
 <a href="#home" class="ui-btn" name="return" id="return">Return</a>
 
+
+
 <!--php test-->
 <div>
 <?php
 
-include("data/booking.php");
+//include("data/booking.php");
 
 ?>
 </div>
