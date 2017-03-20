@@ -18,15 +18,15 @@
 <div data-role="page" id="home" data-theme="d">
   <div data-role="header">
     <h1>Get A Room</h1>
-	
+
 	<!--Adds nav bar-->
 <div data-role="navbar">
 <ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
 <li><a href="#info" data-icon="grid">Info</a></li>
 </ul>
 </div>
-	
-	
+
+
 </div>
 
 <div data-role="main" class="ui-content">
@@ -86,6 +86,8 @@
   <h2>&copy; GetARoom2017 </h2>
 </div>
 
+
+
 </div>
 
 
@@ -99,7 +101,20 @@
 <div data-role="main" class="ui-content">
 <h1>Get A Room: Results</h1>
 
+<!--Return button to go to homepage-->
 <a href="#home" class="ui-btn" name="return" id="return">Return</a>
+
+<!--php test-->
+<div>
+<?php
+
+include("data/booking.php");
+
+?>
+</div>
+
+
+
 </div>
 
 <div data-role="footer">
