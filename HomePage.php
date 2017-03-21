@@ -15,6 +15,25 @@
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 
+<!--script for setting time-->
+<script>
+$(document).ready(function() { //runs a function before site opens
+var fullDate = new Date(); //creates a date object
+//gets date and time from date object
+var time = fullDate.getHours()+':'+fullDate.getMinutes();
+var month = fullDate.getMonth()+1;
+if(month<10){ //month normally is from 0-11 so formats it to 01-12
+var month = ""+0+month;}
+var date = fullDate.getFullYear()+"-"+month+"-"+fullDate.getDate();
+
+//fill the date and time inputs to the varaibles
+$("#start").val(time);
+$("#date").val(date);
+});
+</script>
+
+
+
 <body> <!---->
 <!-- All pages are within Div tags-->
 <div data-role="page" id="home" data-theme="d">
@@ -34,8 +53,8 @@
 <div data-role="main" class="ui-content">
   <h1>Get A Room: Search</h1>
 
-
-    <form method="post" action="/action_page_post.php">
+  <!--Start of form-->
+    <form method="GET"action="test.php" id="formid">
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
@@ -51,28 +70,7 @@
     <input type="date" name="date" id="date">
   </fieldset>
 
-  <!--script for setting time-->
-  <script>
-  $(document).ready(function() { //runs a function before site opens
-var fullDate = new Date(); //creates a date object
-//gets date and time from date object
-var time = fullDate.getHours()+':'+fullDate.getMinutes();
-var month = fullDate.getMonth()+1;
-if(month<10){ //month normally is from 0-11 so formats it to 01-12
-var month = ""+0+month;}
-var date = fullDate.getFullYear()+"-"+month+"-"+fullDate.getDate();
 
-//fill the date and time inputs to the varaibles
-$("#start").val(time);
-$("#date").val(date);
-
-
-
-        var date = (now.getMonth()+1)+'/'+now.getDate()+'/'+(now.getFullYear());
-
-
-  });
-  </script>
 
 
 
@@ -104,14 +102,16 @@ $("#date").val(date);
 
 
   <!--Search Button-->
-
+<input type="submit" value="testin">
   <a href="#results" class="ui-btn" name="search" id="search">Search</a>
 
 </form>
 
+
+
 </div>
 
-<div data-role="footer">
+<div data-role="footer"> <!--Adds trademark-->
   <h2>&copy; GetARoom2017 </h2>
 </div>
 
