@@ -2,6 +2,8 @@
 
 <html>
 <head>
+  <!--might allow for better scaling for mobile.-->
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <title>GetARoom</title>
   <!-- Custom theme made from ThemeRoller-->
   <link rel="stylesheet" href="themes/FirstTheme.css" />
@@ -32,19 +34,49 @@
 <div data-role="main" class="ui-content">
   <h1>Get A Room: Search</h1>
 
-
-    <form method="post" action="/action_page_post.php">
+  <!--Start of form using test.php temporarity to test submit-->
+    <form method="GET"action="data/test.php" id="formid">
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
-    <label for="time">Desired Time</label>
-    <input type="time" name="time" id="time">
+    <label for="start">Start Time</label>
+    <input type="time" name="start" id="start" >
+    <label for="end">End Time</label>
+    <input type="time" name="end" id="end">
   </fieldset>
+
       <!--Date select-->
       <fieldset class="ui-field-contain">
     <label for="date">Desired Date</label>
     <input type="date" name="date" id="date">
   </fieldset>
+
+  <!--script for setting time-->
+  <script>
+  $(document).ready(function() { //runs a function before site opens
+var fullDate = new Date(); //creates a date object
+//gets date and time from date object
+
+var h = fullDate.getHours();
+var m = fullDate.getMinutes();
+var month = fullDate.getMonth()+1;
+if(month<10){ //formats month from 0-11 -> 01-12
+ month = ""+0+month;}
+ if(h<10){ //formats hour from 0-24 -> 01-24    (Clock is 24h on mobile and 12 on desktop reason unknown)
+  h = ""+0+h;}
+  if(m<10){ //formats minute from 0-59 -> 01-59
+   m = ""+0+m;}
+var time = h+':'+m;
+
+var date = fullDate.getFullYear()+"-"+month+"-"+fullDate.getDate();
+
+//fill the date and time inputs to the varaibles
+
+$("#start").val(time);
+$("#date").val(date);
+  });
+  </script>
+
 
 
   <!--Building Filter-->
@@ -75,14 +107,16 @@
 
 
   <!--Search Button-->
-
-  <a href="#results" class="ui-btn" name="search" id="search">Search</a>
+<input type="submit" value="Search">
+<!--  <a href="#results" class="ui-btn" name="search" id="search">Search</a>  -->
 
 </form>
 
+
+
 </div>
 
-<div data-role="footer">
+<div data-role="footer"> <!--Adds trademark-->
   <h2>&copy; GetARoom2017 </h2>
 </div>
 
@@ -102,13 +136,16 @@
 <h1>Get A Room: Results</h1>
 
 <!--Return button to go to homepage-->
+
 <a href="#home" class="ui-btn" name="return" id="return">Return</a>
+
+
 
 <!--php test-->
 <div>
 <?php
 
-include("data/booking.php");
+//include("data/booking.php");
 
 ?>
 </div>
