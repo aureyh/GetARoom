@@ -110,15 +110,16 @@ function convertDayToNum($str){
 			}
       //var_dump($startTIME);
 		if($building === "all"){
+
 			$sql = "SELECT DISTINCT location FROM BOOKINGS WHERE dates = ? and  startTime -0.5 > ? or endTime < ?";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddd", $VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
 			return $ps;
 		} elseif ($building !== "all"){
-			$sql = "SELECT DISTINCT location FROM BOOKINGS WHERE dates = ? and location IS LIKE '?%' startTime -0.5 > ? or endTime < ?";
+			$sql = "SELECT DISTINCT location FROM BOOKINGS WHERE dates = ? and location  LIKE ? and startTime -0.5 > ? or endTime < ?";
 			$ps = $connection->prepare($sql);
-			$ps->bind_param("dsdd", $VALID_DATE,$building,$startTIME,$startTIME);
+			$ps->bind_param("dsdd",$VALID_DATE,$building,$startTIME,$startTIME);
 			$ps->execute();
 			return $ps;
     }
@@ -163,19 +164,20 @@ function convertDayToNum($str){
 		$initdate = new DateTime("$initdate-08-22");
 		$NUMBER_OF_DAYS = dateDifference($initdate, $stamp, '%a');
 		$NUMBER_OF_WEEKS =1 + ($NUMBER_OF_DAYS - $NUMBER_OF_DAYS%7)/7;
-		$DAY_NAME=strftime("%A",strtotime(new date($date)));
+		$DAY_NAME=strftime("%A",strtotime($date));
 		$DAY_NUM=convertDayToNum($DAY_NAME);
 		$VALID_DATE = "$NUMBER_OF_WEEKS.$DAY_NUM";
 		$startTIME = "";
 		$endTIME = "";
 		$strSTART = explode(":",$start,2);
+    $strEND = explode(":",$end,2);
 		if($strEND[1] > 30){
 				$endTIME = $strEND[0].".5";
 			}else{
 				$endTIME = $strEND[0];
 			}
 			$strEND = explode(":",$end,2);
-			if(strpos($strEND[1] > 30)){
+			if($strEND[1] > 30){
 				$endTIME = $strEND[0].".5";
 			}else{
 				$endTIME = $strEND[0];
@@ -241,7 +243,8 @@ function convertDayToNum($str){
 					$results = returnList_both( $start, $end, $date, $building, $type,$connection);
         }
 		}
-    //if($results != null){
+    if($results != null){
+      echo "Results:";
     $results -> bind_result($location);
     while($results -> fetch()){
         echo "
@@ -250,7 +253,9 @@ function convertDayToNum($str){
     $results -> close();
 
 
-	//}
+	}else{
+    echo "No Rooms Found.";
+  }
     $connection -> close();
 }
 
