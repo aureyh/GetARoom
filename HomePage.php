@@ -35,7 +35,7 @@
   <h1>Get A Room: Search</h1>
 
   <!--Start of form using test.php temporarity to test submit-->
-    <form method="GET"action="data/test.php" id="formid">
+    <form method="GET"action="data/listRooms.php" id="formid">
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
@@ -99,8 +99,8 @@ $("#date").val(date);
       <label for="room">Filter Room Type</label>
       <select name="type" id="type">
         <option value="any">any</option>
-        <option value="comp labs">Computer labs</option>
-        <option value="classes">Class Rooms</option>
+        <option value="Computer Labs">Computer Lab</option>
+        <option value="Classroom">Classroom</option>
 
       </select>
     </fieldset>
