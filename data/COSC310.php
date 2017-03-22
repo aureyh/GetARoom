@@ -1,7 +1,7 @@
 <?php
 
 include("ClassInfo_Functions.php"); #includes all functions used above.
-    $csv = fopen("data/relevantclassinfo-1.csv", "r"); //open csv file. csv file changed so that , can be used as delimiter with fget()
+    $csv = fopen("relevantclassinfo-1.csv", "r"); //open csv file. csv file changed so that , can be used as delimiter with fget()
     $sqlArr = array(); //initializes output array to db
     $date = array(); //might be erroneous still useful to have a spare array.
     $holder = array(); //used to oganize csv content
