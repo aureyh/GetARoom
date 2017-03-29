@@ -41,8 +41,10 @@
   type VARCHAR(15)
   )";
 */
+
 	//include 'COSC310.php';
 	//include 'ClassInfo_Functions.php';
+
 	/*select * from bookings where date = $_GET["date"] and location
 	//IS LIKE "$_GET["building"]%" and $_GET["start"] < startTime
 	or $_GET["end"] > endTime
@@ -60,6 +62,7 @@ Or for a specific date:
 $day=strftime("%A",strtotime("2011-05-19"));
 
 */
+<<<<<<< HEAD
 function dateDifference($datetime1 , $datetime2 , $differenceFormat)
 {
   $interval = date_diff($datetime1, $datetime2);
@@ -111,11 +114,13 @@ function convertDayToNum($str){
       //var_dump($startTIME);
 		if($building === "all"){
 
+
 			$sql = "SELECT DISTINCT location FROM BOOKINGS WHERE dates = ? and  startTime -0.5 > ? or endTime < ?";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddd", $VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
 			return $ps;
+<<<<<<< HEAD
 		} elseif ($building !== "all"){
 			$sql = "SELECT DISTINCT location FROM BOOKINGS WHERE dates = ? and location  LIKE ? and startTime -0.5 > ? or endTime < ?";
 			$ps = $connection->prepare($sql);
@@ -131,17 +136,21 @@ function convertDayToNum($str){
 		$initdate = new DateTime("$initdate-08-22");
 		$NUMBER_OF_DAYS = dateDifference($initdate, $stamp, '%a');
 		$NUMBER_OF_WEEKS =1 + ($NUMBER_OF_DAYS - $NUMBER_OF_DAYS%7)/7;
+
 		$DAY_NAME=strftime("%A",strtotime($date));
 		$DAY_NUM=convertDayToNum($DAY_NAME);
 		$VALID_DATE = "$NUMBER_OF_WEEKS.$DAY_NUM";
 		$endTIME = "";
+
     //echo "end";
 		$strEND = explode(":",$end,3);
 			if($strEND[1] > 30){
+
 				$endTIME = $strEND[0].".5";
 			}else{
 				$endTIME = $strEND[0];
 			}
+
       if($building === "all"){
   			$sql = "SELECT DISTINCT location FROM BOOKINGS WHERE dates = ? and  startTime -0.5 > ? or endTime < ?";
   			$ps = $connection->prepare($sql);
@@ -164,14 +173,17 @@ function convertDayToNum($str){
 		$initdate = new DateTime("$initdate-08-22");
 		$NUMBER_OF_DAYS = dateDifference($initdate, $stamp, '%a');
 		$NUMBER_OF_WEEKS =1 + ($NUMBER_OF_DAYS - $NUMBER_OF_DAYS%7)/7;
+
 		$DAY_NAME=strftime("%A",strtotime($date));
 		$DAY_NUM=convertDayToNum($DAY_NAME);
 		$VALID_DATE = "$NUMBER_OF_WEEKS.$DAY_NUM";
 		$startTIME = "";
 		$endTIME = "";
 		$strSTART = explode(":",$start,2);
+<<<<<<< HEAD
     $strEND = explode(":",$end,2);
 		if($strEND[1] > 30){
+
 				$endTIME = $strEND[0].".5";
 			}else{
 				$endTIME = $strEND[0];
@@ -199,6 +211,7 @@ function convertDayToNum($str){
 	//Change username and password as needed.
 	//initializing relevant variables below.
   //echo "john";
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -208,6 +221,7 @@ function convertDayToNum($str){
 	$date = $_GET["date"]; //date is in 2017-03-21
 	$building = $_GET["building"]; //building is just FIPKE EME etc. or all
 	$type = $_GET["type"]; //any, Computer labs or Class Rooms
+
 //  error_reporting(E_ALL);
   //ini_set('display_errors','1');
   //include_once('ValidationResult.class.php');
@@ -260,7 +274,6 @@ function convertDayToNum($str){
 }
 
 //}
-
 ?>
 </body>
 </html>
