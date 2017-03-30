@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<?php //starting session for user verification
+session_start();
+ ?>
 </head>
 <body>
 <!---->
@@ -34,6 +37,7 @@
 <div data-role="main" class="ui-content">
   <h1>Get A Room: Search Results</h1>
 <?php
+#################################### BELOW COMMENT BLOCKS WITH CODE ARE DEPRICATED ##########################################
 /*  $sql = "CREATE TABLE ROOMS(
   name VARCHAR(20) PRIMARY KEY,
   capacity INT(3),
@@ -63,13 +67,13 @@ $day=strftime("%A",strtotime("2011-05-19"));
 
 */
 
-function dateDifference($datetime1 , $datetime2 , $differenceFormat)
+function dateDifference($datetime1 , $datetime2 , $differenceFormat)  #credit goes to http://php.net/manual/en/function.date-diff.php. i am familiar with the code, but this will make it easier.
 {
   $interval = date_diff($datetime1, $datetime2);
 
   return $interval->format($differenceFormat);
 
-} #credit goes to http://php.net/manual/en/function.date-diff.php. i am familiar with the code, but this will make it easier.
+}
 function convertDayToNum($str){
   switch($str){
     case "Mon":
@@ -91,7 +95,7 @@ function convertDayToNum($str){
 
   }
 }
-	function returnList_start( $start, $date, $building, $type, $connection){
+	function returnList_one_Time( $input_time, $date, $building, $type, $connection){
     //echo $date;
 		$stamp = new DateTime($date);
 		$strstamp = explode("-",$date,4);
@@ -104,20 +108,19 @@ function convertDayToNum($str){
 		$DAY_NUM=convertDayToNum(substr($DAY_NAME,0,3));
 		$VALID_DATE = "$NUMBER_OF_WEEKS.$DAY_NUM";
     //echo $VALID_DATE;
-		$startTIME = "";
-		$strSTART = explode(":",$start,3);
+		$input_time_decimal = "";
+		$strSTART = explode(":",$input_time,3);
 		if($strSTART[1] > 30){
-				$startTIME = $strSTART[0].".5";
+				$input_time_decimal = $strSTART[0].".5";
 			}else{
-				$startTIME = $strSTART[0];
+				$input_time_decimal = $strSTART[0];
 			}
       //var_dump($startTIME);
+    echo "START TIME: $input_time<br>";
 		if($building === "all"){
-
-
-			$sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
+		  $sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
 			$ps = $connection->prepare($sql);
-			$ps->bind_param("ddd", $VALID_DATE,$startTIME,$startTIME);
+			$ps->bind_param("ddd", $VALID_DATE,$input_time_decimal,$input_time_decimal);
 			$ps->execute();
       //echo "$startTIME";
       //          echo "$VALID_DATE";
@@ -131,47 +134,6 @@ function convertDayToNum($str){
 			$ps->execute();
 			return $ps;
     }
-	}
-	function returnList_end($end, $date, $building, $type,$connection){
-    //echo $date;
-    $stamp = new DateTime($date);
-    $strstamp = explode("-",$date,4);
-    if($strstamp[1] <= 8 xor ( $strstamp[1] == 8  and $strstamp[2] < 22)){$initdate = $strstamp[0]-1;}else{$initdate = $strstamp[0];}
-    //echo "<br> $initdate";
-    $initdate = new DateTime("$initdate-08-22");
-    $NUMBER_OF_DAYS = dateDifference($initdate, $stamp, '%a');
-    $NUMBER_OF_WEEKS =1 + ($NUMBER_OF_DAYS - $NUMBER_OF_DAYS%7)/7;
-    $DAY_NAME=strftime("%A",strtotime($date));
-    $DAY_NUM=convertDayToNum(substr($DAY_NAME,0,3));
-    $VALID_DATE = "$NUMBER_OF_WEEKS.$DAY_NUM";
-    //echo $VALID_DATE;
-		$endTIME = "";
-
-    //echo "end";
-		$strEND = explode(":",$end,3);
-			if($strEND[1] > 30){
-
-				$endTIME = $strEND[0].".5";
-			}else{
-				$endTIME = $strEND[0];
-			}
-
-      if($building === "all"){
-			$sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE";
-  			$ps = $connection->prepare($sql);
-  			$ps->bind_param("ddd", $VALID_DATE,$endTIME,$endTIME);
-  			$ps->execute();
-          //    echo "$endTIME";
-          //          echo "$VALID_DATE";
-  			return $ps;
-  		} elseif ($building !== "all"){
-        $building = "$building%";
-        $sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?)) and name LIKE ? and ignores is FALSE";
-  			$ps = $connection->prepare($sql);
-  			$ps->bind_param("sddd",$building, $VALID_DATE,$endTIME,$endTIME);
-  			$ps->execute();
-  			return $ps;
-      }
 	}
 	function returnList_both($start, $end, $date, $building, $type,$connection){
     //echo $date;
@@ -189,10 +151,13 @@ function convertDayToNum($str){
 		$startTIME = "";
 		$endTIME = "";
 		$strSTART = explode(":",$start,2);
-
+    if($strSTART[1] > 30){
+        $startTIME = $strSTART[0].".5";
+      }else{
+        $startTIME = $strSTART[0];
+      }
     $strEND = explode(":",$end,2);
 		if($strEND[1] > 30){
-
 				$endTIME = $strEND[0].".5";
 			}else{
 				$endTIME = $strEND[0];
@@ -203,6 +168,11 @@ function convertDayToNum($str){
 			}else{
 				$endTIME = $strEND[0];
 			}
+      echo "START TIME: $start<br>END TIME: $end<br>";
+      //echo "$endTIME    $startTIME";
+      if($endTIME < $startTIME){
+        exit("<p>Invalid User Input. Starting time must be before the end of a given time frame.<p><br><p><a href = 'HomePage.php'>Return</a></p>");
+      }
       if($building === "all"){
 			$sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
   			$ps = $connection->prepare($sql);
@@ -221,10 +191,16 @@ function convertDayToNum($str){
 	//Change username and password as needed.
 	//initializing relevant variables below.
   //echo "john";
+
+// I try below to add security that is excessive.
   try{
+    /*session_unset();if ( !isset( $_SESSION["origURL"] ) )
+      $_SESSION["origURL"] = $_SERVER["HTTP_REFERER"];
+ var_dump($_SESSION["origURL"]);
 
-    var_dump($_SERVER['HTTP_REFERER']);
-
+  if (strpos($_SESSION["origURL"], '/GetARoom/HomePage.php') === false) {
+      exit("Try to access site");
+  }*/
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -238,7 +214,7 @@ function convertDayToNum($str){
 //  error_reporting(E_ALL);
   //ini_set('display_errors','1');
   //include_once('ValidationResult.class.php');
-  if((!empty($start) xor !empty($end)) and !empty($date)){
+  if((!empty($start) or !empty($end)) and !empty($date)){
   if(!empty($start)){
     preg_match_all('/^\d{2}[:]\d{2}$/',$start,$startvalid);
     //var_dump($startvalid);
@@ -255,19 +231,19 @@ function convertDayToNum($str){
 //  $datevalid = new ValidationResult("","","",true);
   if(empty($datevalid[0])){
     //echo("duh");
-    exit("Incomplete Form. Date Format is Invalid.
+    exit("Date Format is Invalid.
     <br><br>Acceptable Format: yyyy-mm-dd
     <p><a href = 'HomePage.php'>Return</a></p>");
   }
   if(isset($startvalid)){if(empty($startvalid[0])){
       //  echo("duh");
-      exit("Incomplete Form. Time Format is Invalid.
+      exit("Time Format is Invalid.
       <br>
       <p><a href = 'HomePage.php'>Return</a></p>");
     }}
-    if(isset($endvalid)){if(empty($endtvalid[0])){
+    if(isset($endvalid)){if(empty($endvalid[0])){
         //  echo("duh");
-        exit("Incomplete Form. Time Format is Invalid.
+        exit("Time Format is Invalid.
         <br>
         <p><a href = 'HomePage.php'>Return</a></p>");
       }}
@@ -288,26 +264,25 @@ function convertDayToNum($str){
 	{
     //echo "here i am ";
 		if(empty($end)){
-					 $results = returnList_start( $start, $date, $building, $type,$connection);
+					 $results = returnList_one_Time( $start, $date, $building, $type,$connection);
 		}elseif(empty($start)){
-					$results = returnList_end( $end, $date, $building, $type,$connection);
+					$results = returnList_one_Time( $end, $date, $building, $type,$connection);
 		} else{
 					$results = returnList_both( $start, $end, $date, $building, $type,$connection);
         }
 		}
-    if($results != null){
-      //echo "Results:";
     $results -> bind_result($location);
+    if($results -> fetch()){
+      //echo "Results:";
+      echo "<p>Please select a room</p>";
+      echo "<p><a href = 'counterButton.html'>Room: ".$location."</a></p>";
     while($results -> fetch()){
-        echo "
-      <p>Room: ".$location."</p>";
+      echo "<p><a href = 'counterButton.html'>Room: ".$location."</a></p>";
     }
-    $results -> close();
-
-
 	}else{
-    echo "No Rooms Found.";
+    echo "<a href = 'HomePage.php'>No Rooms Found</a>";
   }
+ //printf($results);
 } else {
   exit("Incomplete Form. A start time or end time, and date are required.
   <br>
@@ -320,6 +295,7 @@ echo "Oops something went wrong.
 
 }finally{
       $connection -> close();
+      $results -> close();
 }
 
 //}
