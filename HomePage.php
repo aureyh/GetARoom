@@ -86,7 +86,7 @@ $("#date").val(date);
       <select name="building" id="building">
         <option value="all">all</option>
         <option value="UNC">UNC</option>
-        <option value="FIPKE">FIPKE</option>
+        <option value="FIP">FIPKE</option>
         <option value="SCI">SCI</option>
         <option value="LIB">LIB</option>
         <option value="ART">ART</option>
