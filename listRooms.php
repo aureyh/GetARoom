@@ -74,7 +74,7 @@ function dateDifference($datetime1 , $datetime2 , $differenceFormat)  #credit go
   return $interval->format($differenceFormat);
 
 }
-function convertDayToNum($str){
+function convertDayToNum($str){ #used to convert string day to number
   switch($str){
     case "Mon":
     return 1;
@@ -95,7 +95,7 @@ function convertDayToNum($str){
 
   }
 }
-	function returnList_one_Time( $input_time, $date, $building, $type, $connection){
+	function returnList_one_Time( $input_time, $date, $building, $type, $connection){ #When user inputs one time, this code will query database
     //echo $date;
 		$stamp = new DateTime($date);
 		$strstamp = explode("-",$date,4);
@@ -118,7 +118,7 @@ function convertDayToNum($str){
       //var_dump($startTIME);
     echo "START TIME: $input_time<br>";
 		if($building === "all"){
-		  $sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
+		  $sql = "SELECT DISTINCT name,Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddd", $VALID_DATE,$input_time_decimal,$input_time_decimal);
 			$ps->execute();
@@ -128,14 +128,14 @@ function convertDayToNum($str){
 
 		} elseif ($building !== "all"){
       $building = "$building%";
-			$sql = "SELECT DISTINCT name FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("sddd",$building,$VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
 			return $ps;
     }
 	}
-	function returnList_both($start, $end, $date, $building, $type,$connection){
+	function returnList_both($start, $end, $date, $building, $type,$connection){ #queries database for all rooms not active in this time frame
     //echo $date;
     $stamp = new DateTime($date);
     $strstamp = explode("-",$date,4);
@@ -174,14 +174,14 @@ function convertDayToNum($str){
         exit("<p>Invalid User Input. Starting time must be before the end of a given time frame.<p><br><p><a href = 'HomePage.php'>Return</a></p>");
       }
       if($building === "all"){
-			$sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
   			$ps = $connection->prepare($sql);
   			$ps->bind_param("ddddddd", $VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME);
   			$ps->execute();
   			return $ps;
   		} elseif ($building !== "all"){
         $building = "$building%";
-        $sql = "SELECT DISTINCT name FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
+        $sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
         $ps = $connection->prepare($sql);
         $ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building);
   			$ps->execute();
@@ -214,7 +214,7 @@ function convertDayToNum($str){
 //  error_reporting(E_ALL);
   //ini_set('display_errors','1');
   //include_once('ValidationResult.class.php');
-  if((!empty($start) or !empty($end)) and !empty($date)){
+  if((!empty($start) or !empty($end)) and !empty($date)){ #below checks if all user input information is kocher
   if(!empty($start)){
     preg_match_all('/^\d{2}[:]\d{2}$/',$start,$startvalid);
     //var_dump($startvalid);
@@ -247,22 +247,14 @@ function convertDayToNum($str){
         <br>
         <p><a href = 'HomePage.php'>Return</a></p>");
       }}
-
-//  $endvalid = ValidationResult::checkParameter("start",'^\d{2}[:]\d{2}$','Enter a valid Start Time [PHP]');
-//  $datevalid = ValidationResult::checkParameter("start",'^[2][0]\d{2}-[1-12]-[1-32]$','Enter a valid Start Time [PHP]');
-  //if($startvalid -> isValid() && $endvalid -> isValid() && $datevalid -> isValid()) {
-	//start of real code here.
-	$connection = new mysqli($servername, $username, $password, $dbname);
+	$connection = new mysqli($servername, $username, $password, $dbname); #makes connection
 	$error = mysqli_connect_error();
-
 	if($error != null)
 	{
 	  $output = "<p>Unable to connect to database!</p>";
 	  exit($output);
 	}
-	else //main getlist function here.
-	{
-    //echo "here i am ";
+	else { //Query database
 		if(empty($end)){
 					 $results = returnList_one_Time( $start, $date, $building, $type,$connection);
 		}elseif(empty($start)){
@@ -271,29 +263,31 @@ function convertDayToNum($str){
 					$results = returnList_both( $start, $end, $date, $building, $type,$connection);
         }
 		}
-    $results -> bind_result($location);
+    $results -> bind_result($location, $count);
+    #if results exist, print results.
     if($results -> fetch()){
       //echo "Results:";
       echo "<p>Please select a room</p>";
-      echo "<p><a href = 'counterButton.html'>Room: ".$location."</a></p>";
+      echo "<li><ul class = 'RoomName'><a href = 'counterButton.html'>Room: ".$location."</a></ul>
+      <ul class = 'OccCount'>Occupancy Count: $count </ul></li></p>";
     while($results -> fetch()){
-      echo "<p><a href = 'counterButton.html'>Room: ".$location."</a></p>";
+      echo "<li><ul class = 'RoomName'><a href = 'counterButton.html'>Room: ".$location."</a></ul>
+      <ul class = 'OccCount'>Occupancy Count: $count </ul></li></p>";
     }
 	}else{
     echo "<a href = 'HomePage.php'>No Rooms Found</a>";
   }
- //printf($results);
 } else {
   exit("Incomplete Form. A start time or end time, and date are required.
   <br>
   <p><a href = 'HomePage.php'>Return</a></p>");
 }
 } catch(Exception $e){
-echo "Oops something went wrong.
+echo "Oops something went wrong!
   <br>
-  <p><a href = 'HomePage.php'>Try again?</a></p>";
+  <p><a href = 'HomePage.php'>But try again?</a></p>";
 
-}finally{
+}finally{ #always close.
       $connection -> close();
       $results -> close();
 }
