@@ -222,7 +222,9 @@ function convertDayToNum($str){
 	//initializing relevant variables below.
   //echo "john";
   try{
+
     var_dump($_SERVER['HTTP_REFERER']);
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
