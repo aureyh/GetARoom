@@ -21,7 +21,11 @@ if ($conn->query($sql) === TRUE) {
 */
 
 //Creating the table takes around 15 mins
+<<<<<<< HEAD
 set_time_limit(6000);
+=======
+set_time_limit(60000);
+>>>>>>> cff2bda9238e7277ea08d21408af216b0a95070c
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

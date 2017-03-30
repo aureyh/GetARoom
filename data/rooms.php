@@ -1,4 +1,5 @@
 <?php
+
   //This file contains the DDL for the the room table
 
   include("addRoom.php"); #Contains room adding function
@@ -15,14 +16,21 @@
   if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
   }
+
 /*
   $sql = "DROP TABLE ROOMS";
+=======
+
+  /*$sql = "DROP TABLE ROOMS";
+>>>>>>> cff2bda9238e7277ea08d21408af216b0a95070c
   if ($conn->query($sql) === TRUE) {
       echo "Dank Drop";
   } else {
       echo "Error dropping table: " . $conn->error;
+<<<<<<< HEAD
   }
 */
+
 
   $sql = "CREATE TABLE ROOMS(
   name VARCHAR(20) PRIMARY KEY,
@@ -103,4 +111,5 @@
   addRoom('SCI 333', 109, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom','FALSE');
   addRoom('SCI 337', 104, 'Tables, Projector - Overhead transparency, A/V System, Whiteboard, Document Camera, Microphone', 'Classroom','FALSE');
   addRoom('SCI 396', 40, 'Tables - Moveable, Projector, A/V System', 'Classroom','FALSE');
+
  ?>

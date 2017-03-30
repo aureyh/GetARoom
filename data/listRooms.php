@@ -128,11 +128,13 @@ function convertDayToNum($str){
 			$sql = "SELECT DISTINCT name FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("sddd",$building,$VALID_DATE,$startTIME,$startTIME);
+
 			$ps->execute();
 			return $ps;
     }
 	}
 	function returnList_end($end, $date, $building, $type,$connection){
+
     //echo $date;
     $stamp = new DateTime($date);
     $strstamp = explode("-",$date,4);
@@ -169,11 +171,13 @@ function convertDayToNum($str){
         $sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?)) and name LIKE ? and ignores is FALSE";
   			$ps = $connection->prepare($sql);
   			$ps->bind_param("sddd",$building, $VALID_DATE,$endTIME,$endTIME);
+
   			$ps->execute();
   			return $ps;
       }
 	}
 	function returnList_both($start, $end, $date, $building, $type,$connection){
+
     //echo $date;
     $stamp = new DateTime($date);
     $strstamp = explode("-",$date,4);
@@ -204,6 +208,7 @@ function convertDayToNum($str){
 				$endTIME = $strEND[0];
 			}
       if($building === "all"){
+
 			$sql = "SELECT DISTINCT name FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
   			$ps = $connection->prepare($sql);
   			$ps->bind_param("ddddddd", $VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME);
@@ -221,7 +226,6 @@ function convertDayToNum($str){
 	//Change username and password as needed.
 	//initializing relevant variables below.
   //echo "john";
-
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -231,7 +235,9 @@ function convertDayToNum($str){
 	$date = $_GET["date"]; //date is in 2017-03-21
 	$building = $_GET["building"]; //building is just FIPKE EME etc. or all
 	$type = $_GET["type"]; //any, Computer labs or Class Rooms
+
 //echo "john";
+
 //  error_reporting(E_ALL);
   //ini_set('display_errors','1');
   //include_once('ValidationResult.class.php');
@@ -268,7 +274,9 @@ function convertDayToNum($str){
         }
 		}
     if($results != null){
+
       //echo "Results:";
+
     $results -> bind_result($location);
     while($results -> fetch()){
         echo "
@@ -284,6 +292,7 @@ function convertDayToNum($str){
 }
 
 //}
+
 ?>
 </body>
 </html>
