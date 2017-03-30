@@ -158,7 +158,6 @@ $("#date").val(date);
 <h2>&copy; GetARoom2017 </h2>
 </div>
 </div>
-
 <!--Info page-->
 <div data-role="page" id="info"  data-theme="d"> <!--Pages are given an id for linking-->
 <div data-role="header">

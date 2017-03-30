@@ -221,7 +221,8 @@ function convertDayToNum($str){
 	//Change username and password as needed.
 	//initializing relevant variables below.
   //echo "john";
-
+  try{
+    var_dump($_SERVER['HTTP_REFERER']);
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -235,22 +236,47 @@ function convertDayToNum($str){
 //  error_reporting(E_ALL);
   //ini_set('display_errors','1');
   //include_once('ValidationResult.class.php');
-  //$startvalid = new ValidationResult("","","",true);
-  //$endvalid = new ValidationResult("","","",true);
-  //$datevalid = new ValidationResult("","","",true);
-  //$startvalid = ValidationResult::checkParameter("start",'^\d{2}[:]\d{2}$','Enter a valid Start Time [PHP]');
-  //$endvalid = ValidationResult::checkParameter("start",'^\d{2}[:]\d{2}$','Enter a valid Start Time [PHP]');
-  //$datevalid = ValidationResult::checkParameter("start",'^[2][0]\d{2}-[1-12]-[1-32]$','Enter a valid Start Time [PHP]');
+  if((!empty($start) xor !empty($end)) and !empty($date)){
+  if(!empty($start)){
+    preg_match_all('/^\d{2}[:]\d{2}$/',$start,$startvalid);
+    //var_dump($startvalid);
+  }
+//  $startvalid = new ValidationResult("","","",true);
+    if(!empty($end)){
+      preg_match_all('/^\d{2}[:]\d{2}$/',$end,$endvalid);
+    }
+//  $endvalid = new ValidationResult("","","",true);
+      preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/',$date,$datevalid);
+    //  var_dump($startvalid);
+      //var_dump($endvalid);
+    //  var_dump($datevalid);
+//  $datevalid = new ValidationResult("","","",true);
+  if(empty($datevalid[0])){
+    //echo("duh");
+    exit("Incomplete Form. Date Format is Invalid.
+    <br><br>Acceptable Format: yyyy-mm-dd
+    <p><a href = 'HomePage.php'>Return</a></p>");
+  }
+  if(isset($startvalid)){if(empty($startvalid[0])){
+      //  echo("duh");
+      exit("Incomplete Form. Time Format is Invalid.
+      <br>
+      <p><a href = 'HomePage.php'>Return</a></p>");
+    }}
+    if(isset($endvalid)){if(empty($endtvalid[0])){
+        //  echo("duh");
+        exit("Incomplete Form. Time Format is Invalid.
+        <br>
+        <p><a href = 'HomePage.php'>Return</a></p>");
+      }}
+
+//  $endvalid = ValidationResult::checkParameter("start",'^\d{2}[:]\d{2}$','Enter a valid Start Time [PHP]');
+//  $datevalid = ValidationResult::checkParameter("start",'^[2][0]\d{2}-[1-12]-[1-32]$','Enter a valid Start Time [PHP]');
   //if($startvalid -> isValid() && $endvalid -> isValid() && $datevalid -> isValid()) {
 	//start of real code here.
 	$connection = new mysqli($servername, $username, $password, $dbname);
 	$error = mysqli_connect_error();
-	if((empty($start) and empty($end)) or empty($date)) {
-	exit("Incomplete Form. A start time or end time, and date are required.
-	<br>
-	<br>
-	<a href = '../HomePage.php')Return</a>");
-	}else{
+
 	if($error != null)
 	{
 	  $output = "<p>Unable to connect to database!</p>";
@@ -280,7 +306,18 @@ function convertDayToNum($str){
 	}else{
     echo "No Rooms Found.";
   }
-    $connection -> close();
+} else {
+  exit("Incomplete Form. A start time or end time, and date are required.
+  <br>
+  <p><a href = 'HomePage.php'>Return</a></p>");
+}
+} catch(Exception $e){
+echo "Oops something went wrong.
+  <br>
+  <p><a href = 'HomePage.php'>Try again?</a></p>";
+
+}finally{
+      $connection -> close();
 }
 
 //}
