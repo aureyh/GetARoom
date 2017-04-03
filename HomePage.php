@@ -29,6 +29,7 @@
 <div data-role="navbar">
 <ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
 <li><a href="#info" data-icon="grid">Info</a></li>
+<li><a href="#map" data-icon="navigation">Campus Map</a></li>
 <!--Link to the accounts page from the nav bar-->
 <li><a href="Accounts.php" data-icon="user">Sign In</a></li>
 </ul>
@@ -171,15 +172,6 @@ $("#date").val(date);
 
 
 
-
-
-
-
-
-
-
-
-
 <!--Info page-->
 <div data-role="page" id="info"  data-theme="d"> <!--Pages are given an id for linking-->
 <div data-role="header">
@@ -222,6 +214,42 @@ $("#date").val(date);
 <h2>&copy; GetARoom2017 </h2>
 </div>
 </div>
+
+
+<!--Map page-->
+<div data-role="page" id="map"  data-theme="d"> <!--Pages are given an id for linking-->
+<div data-role="header">
+  <h1>Get A Room</h1>
+
+  <!--Adds nav bar-->
+<div data-role="navbar">
+<ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
+<li><a href="#home" data-icon="home">Home</a></li>
+<li><a href="#info" data-icon="grid">Info</a></li>
+<!--Link to the accounts page from the nav bar-->
+<li><a href="Accounts.php" data-icon="user">Sign In</a></li>
+</div>
+
+</div>
+
+<div data-role="main" class="ui-content">
+<h1>Get A Room: Map</h1>
+<img src="map.png">
+
+<strong>FIPKE</strong>: FipKe Center <br>
+<strong>SCI</strong>: Science Building <br>
+<strong>EME</strong>: Engineering, Managment and Education <br>
+<strong>ART</strong>: Arts Building <br>
+<strong>LIB</strong>: Library Building
+
+</div>
+
+<div data-role="footer">
+<h2>&copy; GetARoom2017 </h2>
+</div>
+</div>
+
+
 
 
 
