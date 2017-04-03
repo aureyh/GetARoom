@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> bf90c9fd25be3897f19b3ce911b76d6a08c028e7
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +31,6 @@
 
         <!-- contents to display upon clicking yes -->
         <div id="popup1-Yes-Contents">
-<<<<<<< HEAD
           <h4>Please read the descriptions for the available room tags. Please note tags will disappear after 1 hour.</h4>
           <div id="groupTag">
             <form action ="/userTags.php" method = "POST">
@@ -64,17 +59,6 @@
           <input type="submit" value="Apply">
           </form>
           <button class="cancelBtn" onclick="toggle_visibility('popup-Box1-Position');">Cancel</button>
-=======
-          <div id="groupTag"></div>
-
-          <div id="quietTag"></div>
-
-          <div id="privateTag"></div>
-
-          <button class="applyBtn" onclick=javascriptvoid(0);>Apply</button>
-
-          <button class="cancelBtn" onclick=javascriptvoid(0);>Cancel</button>
->>>>>>> bf90c9fd25be3897f19b3ce911b76d6a08c028e7
         </div><!-- End of popup1-Yes-Contents -->
 
       </div><!-- popup-Container end-->
@@ -82,23 +66,14 @@
     </div><!-- popup-Box1-Position end -->
 
 <div id="wrapper">
-<<<<<<< HEAD
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
-=======
-  <button class= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
->>>>>>> bf90c9fd25be3897f19b3ce911b76d6a08c028e7
 </div><!-- wrapper end-->
 
 
 
-<<<<<<< HEAD
 
 <script>
 // Visibility toggle function for pop-up window
-=======
-<!--Visibility toggle function for pop-up window-->
-<script>
->>>>>>> bf90c9fd25be3897f19b3ce911b76d6a08c028e7
       function toggle_visibility(id) {
          var e = document.getElementById(id);
          if(e.style.display == 'block')
@@ -106,7 +81,6 @@
          else
             e.style.display = 'block';
       }
-<<<<<<< HEAD
 
 //script to fade out popup1-Contents and fade in popup1-Yes-Contents when pushing yes button
       $(document).ready(function(){
@@ -120,17 +94,6 @@
         $(".cancelBtn").click(function(){
           $("#popup1-Yes-Contents").fadeOut();
           $("#popup1-Contents").fadeIn();
-=======
-//******CODE BELOW IS NOT WORKING******
-//script to fade out popup1-Contents and fade in popup1-Yes-Contents
-      $(document).ready(function(){
-        $("#popup-1-Yes-Contents").hide() //can't fadeIn() unless hidden, display: none set in css
-        $("yesBtn").click(function(){
-          ("#popup-1-Yes-Contents").show();
-      });
-        $("yesBtn").click(function(){
-          ("#popup1-Contents").hide();
->>>>>>> bf90c9fd25be3897f19b3ce911b76d6a08c028e7
         });
       });
 
