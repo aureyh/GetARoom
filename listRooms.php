@@ -16,6 +16,18 @@
 <?php //starting session for user verification
 session_start();
  ?>
+
+ <style>
+ th {
+     border-bottom: 1px solid #d6d6d6;
+ }
+
+ tr:nth-child(even) {
+     background: #262980;
+ }
+ </style>
+
+
 </head>
 <body>
 <!---->
@@ -27,7 +39,11 @@ session_start();
 	<!--Adds nav bar-->
 <div data-role="navbar">
 <ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
-<li><a href="#info" data-icon="grid">Info</a></li>
+
+<li><a href="HomePage.php" data-icon="home">Home</a></li>
+
+<!--Link to the accounts page from the nav bar-->
+<li><a href="Accounts.php" data-icon="user">Sign In</a></li>
 </ul>
 </div>
 
@@ -36,6 +52,19 @@ session_start();
 
 <div data-role="main" class="ui-content">
   <h1>Get A Room: Search Results</h1>
+
+ <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+  <thead>
+    <tr>
+
+    <th>Room</th>
+    <th data-priority="1">Occupancy</th>
+    <th data-priority="2">Requests</th>
+    <th data-priority="3">Ratings</th>
+  </tr>
+</thread>
+<tbody>
+
 <?php
 #################################### BELOW COMMENT BLOCKS WITH CODE ARE DEPRICATED ##########################################
 /*  $sql = "CREATE TABLE ROOMS(
@@ -169,6 +198,8 @@ function convertDayToNum($str){ #used to convert string day to number
 				$endTIME = $strEND[0];
 			}
       echo "START TIME: $start<br>END TIME: $end<br>";
+
+
       //echo "$endTIME    $startTIME";
       if($endTIME < $startTIME){
         exit("<p>Invalid User Input. Starting time must be before the end of a given time frame.<p><br><p><a href = 'HomePage.php'>Return</a></p>");
@@ -267,13 +298,22 @@ function convertDayToNum($str){ #used to convert string day to number
     #if results exist, print results.
     if($results -> fetch()){
       //echo "Results:";
-      echo "<p>Please select a room</p>";
-      echo "<li><ul class = 'RoomName'><a href = 'counterButton.html'>Room: ".$location."</a></ul>
-      <ul class = 'OccCount'>Occupancy Count: $count </ul></li></p>";
-    while($results -> fetch()){
-      echo "<li><ul class = 'RoomName'><a href = 'counterButton.html'>Room: ".$location."</a></ul>
-      <ul class = 'OccCount'>Occupancy Count: $count </ul></li></p>";
-    }
+
+      echo "<p>Click a room for more information</p>";
+
+
+
+
+    do{
+      echo "<td class = 'RoomName'><a href = 'roomCalendar.php'>Room: ".$location."</a></td>
+      <td class = 'OccCount'>Occupancy Count: $count </td>
+      <td><a href = 'counterButton.php'>Request</a></td>
+      <td><a href = 'counterButton.php'>Rate</a></td></tr>";
+      //Request will show the current user Request
+      //Rating will show the top 3 user ratings
+    }while($results -> fetch());
+
+
 	}else{
     echo "<a href = 'HomePage.php'>No Rooms Found</a>";
   }
@@ -294,5 +334,20 @@ echo "Oops something went wrong!
 
 //}
 ?>
+
+</tbody>
+</table>
+
+
+</div>
+
+<div data-role="footer">
+<h2>&copy; GetARoom2017 </h2>
+</div>
+
+</div>
+
+
+
 </body>
 </html>

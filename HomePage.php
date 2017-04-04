@@ -159,9 +159,6 @@ $("#date").val(date);
 <div data-role="main" class="ui-content">
 <h1>Get A Room: Results</h1>
 
-<!--Return button to go to homepage-->
-
-
 
 </div>
 
