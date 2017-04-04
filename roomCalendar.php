@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html><!---->
 <head>
   <!--might allow for better scaling for mobile.-->
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
