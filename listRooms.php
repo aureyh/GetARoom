@@ -255,7 +255,7 @@ function convertDayToNum($str){ #used to convert string day to number
       preg_match_all('/^\d{2}[:]\d{2}$/',$end,$endvalid);
     }
 //  $endvalid = new ValidationResult("","","",true);
-      preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/',$date,$datevalid);
+preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])$/',$date,$datevalid);
     //  var_dump($startvalid);
       //var_dump($endvalid);
     //  var_dump($datevalid);
@@ -296,17 +296,18 @@ function convertDayToNum($str){ #used to convert string day to number
 		}
     $results -> bind_result($location, $count);
     #if results exist, print results.
-    if($results -> fetch()){
-      //echo "Results:";
-
+    $connection2 = new mysqli($servername, $username, $password, $dbname);
+    $sql2 = "Delete From roomschedule WHERE endtime <= Now()";
+    if ($connection2->query($sql2) === TRUE) {
       echo "<p>Click a room for more information</p>";
-
-
-
-
+    } else {
+    exit("Something went horribly wrong.
+    <p><a href = 'HomePage.php'>Return</a></p>");
+    }
+    if($results -> fetch()){
     do{
       echo "<td class = 'RoomName'><a href = 'roomCalendar.php'>Room: ".$location."</a></td>
-      <td class = 'OccCount'>Occupancy Count: $count </td>
+      <td class = 'OccCount'> $count </td>
       <td><a href = 'counterButton.php'>Request</a></td>
       <td><a href = 'counterButton.php'>Rate</a></td></tr>";
       //Request will show the current user Request
