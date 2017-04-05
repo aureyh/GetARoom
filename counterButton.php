@@ -1,42 +1,20 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <!--might allow for better scaling for mobile.-->
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <title>GetARoom</title>
-  <!-- Custom theme made from ThemeRoller-->
-  <link rel="stylesheet" href="themes/FirstTheme.css" />
-  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 
   <!-- Install Jqery mobile to site-->
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <?php session_start();
-  //below is a part of extra security that is optional.
-  //if ( !isset( $_SESSION["origURL"] ) )
-  //    $_SESSION["origURL"] = $_SERVER["HTTP_REFERER"]; ?>
+
+<!-- Css install -->
+<link href="buttonStyle.css" type="text/css" rel="stylesheet" />
+
+
 </head>
 
 <body>
 
-  <div data-role="page" id="map"  data-theme="d"> <!--Pages are given an id for linking-->
-  <div data-role="header">
-    <h1>Get A Room</h1>
-    <!--Adds nav bar-->
-  <div data-role="navbar">
-  <ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
-  <li><a href="HomePage.php" data-icon="home">Home</a></li>
-
-  <!--Link to the accounts page from the nav bar-->
-  <li><a href="Accounts.php" data-icon="user">Sign In</a></li>
-  </div>
-
-  </div>
-<!---->
-
-<div data-role="main" class="ui-content">
 
 <!--Outer popup box -->
 <div id="popup-Box1-Position">
@@ -53,15 +31,34 @@
 
         <!-- contents to display upon clicking yes -->
         <div id="popup1-Yes-Contents">
-          <div id="groupTag"></div>
+          <h4>Please read the descriptions for the available room tags. Please note tags will disappear after 1 hour.</h4>
+          <div id="groupTag">
+            <form action ="/userTags.php" method = "POST">
+            <p>The group tag indicates a group of the amount of people that are working in the room.</p>
+            <h3>Group</h3>
+            <span>
+            <input type="checkbox" name="check2People" value="2">2<br>
+            <input type="checkbox" name="check3People" value="3">3<br>
+            <input type="checkbox" name="check4People" value="4">4<br>
+            <input type="checkbox" name="check5People" value="5">5+<br>
+          </span>
+          </div>
 
-          <div id="quietTag"></div>
+          <div id="quietTag">
+            <p>The quiet tag indicates this room can be used by anyone, but please do not disturb other people.</p>
+            <h3>Quiet</h3>
+            <input type="checkbox" name="quietCheck" value="quiet">Quiet Room<br>
+          </div>
 
-          <div id="privateTag"></div>
-
-          <button class="applyBtn" onclick=javascriptvoid(0);>Apply</button>
-
-          <button class="cancelBtn" onclick=javascriptvoid(0);>Cancel</button>
+          <div id="privateTag">
+            <p>The private tag indicates a group needs the room for a meeting, presentation etc.</p>
+            <h3>Private</h3>
+            <input type="checkbox" name="privateCheck" value="private">Private Room<br>
+          </div>
+          <p>When you have selected your preffered tags, please hit apply. </p>
+          <input type="submit" value="Apply">
+          </form>
+          <button class="cancelBtn" onclick="toggle_visibility('popup-Box1-Position');">Cancel</button>
         </div><!-- End of popup1-Yes-Contents -->
 
       </div><!-- popup-Container end-->
@@ -69,13 +66,14 @@
     </div><!-- popup-Box1-Position end -->
 
 <div id="wrapper">
-  <button class= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
+  <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
 </div><!-- wrapper end-->
 
 
 
-<!--Visibility toggle function for pop-up window-->
+
 <script>
+// Visibility toggle function for pop-up window
       function toggle_visibility(id) {
          var e = document.getElementById(id);
          if(e.style.display == 'block')
@@ -83,26 +81,20 @@
          else
             e.style.display = 'block';
       }
-//******CODE BELOW IS NOT WORKING******
-//script to fade out popup1-Contents and fade in popup1-Yes-Contents
+//script to fade out popup1-Contents and fade in popup1-Yes-Contents when pushing yes button
       $(document).ready(function(){
-        $("#popup-1-Yes-Contents").hide() //can't fadeIn() unless hidden, display: none set in css
-        $("yesBtn").click(function(){
-          ("#popup-1-Yes-Contents").show();
-      });
-        $("yesBtn").click(function(){
-          ("#popup1-Contents").hide();
+        $(".yesBtn").click(function(){
+          $("#popup1-Yes-Contents").fadeIn();
+          $("#popup1-Contents").fadeOut();
         });
       });
-
+//script that fades in popup1-Yes-Contents nad fades out popup1-Contents when pushing cancel button
+      $(document).ready(function(){
+        $(".cancelBtn").click(function(){
+          $("#popup1-Yes-Contents").fadeOut();
+          $("#popup1-Contents").fadeIn();
+        });
+      });
 </script>
-</div>
-
-<div data-role="footer">
-<h2>&copy; GetARoom2017 </h2>
-</div>
-</div>
-
-
 </body>
 </html>
