@@ -8,7 +8,7 @@
   <!-- Custom theme made from ThemeRoller-->
   <link rel="stylesheet" href="themes/FirstTheme.css" />
 <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-
+<link href="buttonStyle.css" type="text/css" rel="stylesheet" />
 <!-- Install Jqery mobile to site-->
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -96,7 +96,7 @@ $("#date").val(date);
     <fieldset class="ui-field-contain">
       <label for="room">Filter Building</label>
       <select name="building" id="building">
-        <option value="all">all</option>
+        <option value="all">ALL</option>
         <option value="UNC">UNC</option>
         <option value="FIP">FIPKE</option>
         <option value="SCI">SCI</option>
@@ -110,7 +110,7 @@ $("#date").val(date);
     <fieldset class="ui-field-contain">
       <label for="room">Filter Room Type</label>
       <select name="type" id="type">
-        <option value="any">any</option>
+        <option value="any">ANY</option>
         <option value="Computer Labs">Computer Lab</option>
         <option value="Classroom">Classroom</option>
 

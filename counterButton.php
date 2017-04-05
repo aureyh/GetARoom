@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body id ="jordansbody">
 
 
 <!--Outer popup box -->
@@ -24,34 +24,37 @@
 
         <div id="popup1-Contents">
         <h4>Thank you for using our counter!</h4>
-        <p>Would you like to add tags to this room?<p>
+        <p>Would you like to tag this room?<p>
           <button class="yesBtn">Yes</button>
           <button class="noBtn" onclick="toggle_visibility('popup-Box1-Position');">No</button>
         </div><!-- end of popup1-Contents -->
 
         <!-- contents to display upon clicking yes -->
         <div id="popup1-Yes-Contents">
-          <h4>Please read the descriptions for the available room tags. Please note tags will disappear after 1 hour.</h4>
+          <h4>Please read the descriptions for the available room tags. Please note stickies will disappear after 1 hour.</h4>
           <div id="groupTag">
             <form action ="/userTags.php" method = "POST">
-            <p>The group tag indicates a group of the amount of people that are working in the room.</p>
+            <p>The group sticky indicates a group of the amount of people that are working in the room.</p>
             <h3>Group</h3>
-            <span>
-            <input type="checkbox" name="check2People" value="2">2<br>
-            <input type="checkbox" name="check3People" value="3">3<br>
-            <input type="checkbox" name="check4People" value="4">4<br>
-            <input type="checkbox" name="check5People" value="5">5+<br>
-          </span>
+            <fieldset class="ui-field-contain">
+              <select name="groupCheck" id="Group">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </fieldset>
           </div>
 
           <div id="quietTag">
-            <p>The quiet tag indicates this room can be used by anyone, but please do not disturb other people.</p>
+            <p>The quiet sticky indicates this room can be used by anyone, but please do not disturb other people.</p>
             <h3>Quiet</h3>
             <input type="checkbox" name="quietCheck" value="quiet">Quiet Room<br>
           </div>
 
           <div id="privateTag">
-            <p>The private tag indicates a group needs the room for a meeting, presentation etc.</p>
+            <p>The private sticky indicates a group needs the room for a meeting, presentation etc.</p>
             <h3>Private</h3>
             <input type="checkbox" name="privateCheck" value="private">Private Room<br>
           </div>
@@ -86,6 +89,7 @@
         $(".yesBtn").click(function(){
           $("#popup1-Yes-Contents").fadeIn();
           $("#popup1-Contents").fadeOut();
+          $('input[type=checkbox]').removeAttr('checked');
         });
       });
 //script that fades in popup1-Yes-Contents nad fades out popup1-Contents when pushing cancel button
