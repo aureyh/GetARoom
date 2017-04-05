@@ -16,6 +16,7 @@
 <body id ="jordansbody">
 
 
+
 <!--Outer popup box -->
 <div id="popup-Box1-Position">
   <div class="popup-Wrapper">
@@ -26,19 +27,27 @@
         <h4>Thank you for using our counter!</h4>
         <p>Would you like to tag this room?<p>
           <button class="yesBtn">Yes</button>
-          <button class="noBtn" onclick="toggle_visibility('popup-Box1-Position');">No</button>
+        <?php if (isset($_SERVER['HTTP_REFERER'])){
+          $link = $_SERVER['HTTP_REFERER'];
+          echo "<a class='noBtn' href='$link>No</a>}";}
+          else {
+            echo "<a class='noBtn' href='HomePage'>No</a>";
+          } ?>
         </div><!-- end of popup1-Contents -->
 
         <!-- contents to display upon clicking yes -->
         <div id="popup1-Yes-Contents">
           <h4>Please read the descriptions for the available room tags. Please note stickies will disappear after 1 hour.</h4>
+          <h4>Your participation will help us allocate space better.</h4>
           <div id="groupTag">
             <form action ="/userTags.php" method = "POST">
-            <p>The group sticky indicates a group of the amount of people that are working in the room.</p>
+            <p>The group tag represents the size of the group registering a room for use.</p>
+            <p>By registering we will be able to show other users how full a room is</p>
+            <p></p>
             <h3>Group</h3>
             <fieldset class="ui-field-contain">
               <select name="groupCheck" id="Group">
-                <option value="1">1</option>
+                <option value="1">Group Size</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -49,6 +58,7 @@
 
           <div id="quietTag">
             <p>The quiet sticky indicates this room can be used by anyone, but please do not disturb other people.</p>
+
             <h3>Quiet</h3>
             <input type="checkbox" name="quietCheck" value="quiet">Quiet Room<br>
           </div>
@@ -60,20 +70,19 @@
           </div>
           <p>When you have selected your preffered tags, please hit apply. </p>
           <input type="submit" value="Apply">
-          </form>
+        </form> <!-- End of form tag to apply check box info to php file -->
           <button class="cancelBtn" onclick="toggle_visibility('popup-Box1-Position');">Cancel</button>
         </div><!-- End of popup1-Yes-Contents -->
 
       </div><!-- popup-Container end-->
       </div><!-- popoup-wrapper end -->
     </div><!-- popup-Box1-Position end -->
-
+<!--
 <div id="wrapper">
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
+<<<<<<< HEAD
 </div><!-- wrapper end-->
-
-
-
+</div>
 
 <script>
 // Visibility toggle function for pop-up window
@@ -92,9 +101,18 @@
           $('input[type=checkbox]').removeAttr('checked');
         });
       });
-//script that fades in popup1-Yes-Contents nad fades out popup1-Contents when pushing cancel button
+
+//script that fades in popup1-Yes-Contents and fades out popup1-Contents when pushing cancel button
       $(document).ready(function(){
         $(".cancelBtn").click(function(){
+          $("#popup1-Yes-Contents").fadeOut();
+          $("#popup1-Contents").fadeIn();
+          $('input[type=checkbox]').removeAttr('checked');
+        });
+      });
+// scrip that faces in popup1-Yes-Contents and faces out popup1-Contents when pushing apply button
+      $(document).ready(function(){
+        $(".applyBtn").click(function(){
           $("#popup1-Yes-Contents").fadeOut();
           $("#popup1-Contents").fadeIn();
         });

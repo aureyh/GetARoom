@@ -93,7 +93,7 @@ $("#date").val(date);
 
   <!--Building Filter-->
 
-    <fieldset class="ui-field-contain">
+    <fieldset  class="ui-field-contain">
       <label for="room">Filter Building</label>
       <select name="building" id="building">
         <option value="all">ALL</option>
@@ -113,7 +113,6 @@ $("#date").val(date);
         <option value="any">ANY</option>
         <option value="Computer Labs">Computer Lab</option>
         <option value="Classroom">Classroom</option>
-
       </select>
     </fieldset>
 

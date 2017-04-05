@@ -8,7 +8,7 @@
   <!-- Custom theme made from ThemeRoller-->
   <link rel="stylesheet" href="themes/FirstTheme.css" />
 <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-
+<link href="buttonStyle.css" type="text/css" rel="stylesheet" />
 <!-- Install Jqery mobile to site-->
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -146,23 +146,41 @@ function convertDayToNum($str){ #used to convert string day to number
 			}
       //var_dump($startTIME);
     echo "START TIME: $input_time<br>";
-		if($building === "all"){
+		//returns all buildings of all types
+		if($building === "all" && $type === "any"){
 		  $sql = "SELECT DISTINCT name,Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddd", $VALID_DATE,$input_time_decimal,$input_time_decimal);
 			$ps->execute();
-      //echo "$startTIME";
-      //          echo "$VALID_DATE";
+			//echo "$startTIME";
+			//echo "$VALID_DATE";
 			return $ps;
-
-		} elseif ($building !== "all"){
-      $building = "$building%";
+		//returns specific building of all types
+		} elseif ($building !== "all" && $type === "any"){
+			$building = "$building%";
 			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("sddd",$building,$VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
 			return $ps;
-    }
+		//returns all buildings of specific type
+		} elseif ($building === "all" && $type !== "any"){
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE type LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("sddd",$type,$VALID_DATE,$startTIME,$startTIME);
+			$ps->execute();
+			return $ps;
+		//returns specific building of specific type
+		}elseif ($building !== "all" && $type !== "any"){
+			$building = "$building%";
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ? and type LIKE ? and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("ssddd",$building,$type,$VALID_DATE,$startTIME,$startTIME);
+			$ps->execute();
+			return $ps;
+		}
 	}
 	function returnList_both($start, $end, $date, $building, $type,$connection){ #queries database for all rooms not active in this time frame
     //echo $date;
@@ -200,24 +218,44 @@ function convertDayToNum($str){ #used to convert string day to number
       echo "START TIME: $start<br>END TIME: $end<br>";
 
 
+
       //echo "$endTIME    $startTIME";
       if($endTIME < $startTIME){
         exit("<p>Invalid User Input. Starting time must be before the end of a given time frame.<p><br><p><a href = 'HomePage.php'>Return</a></p>");
       }
-      if($building === "all"){
+	  //returns all buildings and all typs
+      if($building === "all" && $type === "any"){
 			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
   			$ps = $connection->prepare($sql);
   			$ps->bind_param("ddddddd", $VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME);
   			$ps->execute();
   			return $ps;
-  		} elseif ($building !== "all"){
-        $building = "$building%";
-        $sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
-        $ps = $connection->prepare($sql);
-        $ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building);
+		//returns specific building of all types
+  		} elseif ($building !== "all" && $type === "any"){
+			$building = "$building%";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building);
   			$ps->execute();
   			return $ps;
-      }
+		//returns all buildings of specific type
+		} elseif ($building === "all" && $type !== "any"){
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and type LIKE ? and ignores is FALSE";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$type);
+  			$ps->execute();
+  			return $ps;
+		//returns specific building of specific type
+		} elseif ($building !== "all" && $type !== "any"){
+			$building = "$building%";
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and type LIKE ? and ignores is FALSE";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("dddddddss",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building,$type);
+  			$ps->execute();
+  			return $ps;
+		}
 	}//startTime <= start <=endTime or startTime <= end <= endTime or (start < startTime and end > startTime)
 	//Change username and password as needed.
 	//initializing relevant variables below.
