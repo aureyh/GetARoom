@@ -217,6 +217,7 @@ function convertDayToNum($str){ #used to convert string day to number
 			}
       echo "START TIME: $start<br>END TIME: $end<br>";
 
+	  
 
       //echo "$endTIME    $startTIME";
       if($endTIME < $startTIME){
