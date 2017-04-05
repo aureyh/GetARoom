@@ -111,7 +111,7 @@ $("#date").val(date);
       <label for="room">Filter Room Type</label>
       <select name="type" id="type">
         <option value="any">any</option>
-        <option value="Computer Labs">Computer Lab</option>
+        <option value="Computer Lab">Computer Lab</option>
         <option value="Classroom">Classroom</option>
 
       </select>
