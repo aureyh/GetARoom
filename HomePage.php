@@ -8,7 +8,7 @@
   <!-- Custom theme made from ThemeRoller-->
   <link rel="stylesheet" href="themes/FirstTheme.css" />
 <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-
+<link href="buttonStyle.css" type="text/css" rel="stylesheet" />
 <!-- Install Jqery mobile to site-->
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>

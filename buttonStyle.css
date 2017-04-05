@@ -1,6 +1,6 @@
 /*CSS DOCUMENT*/
 body{
-  overflow-y: scroll;
+
   padding: 0;
   font-family: Roboto;
   font-size: 1em;
@@ -16,7 +16,7 @@ html {
   width: 100%;
   height: 120%;
   background-color: #005599;
-  display: none;
+/*  display: none; */
 }
 .popup-Wrapper{
   width: 550px;
@@ -33,7 +33,7 @@ html {
   color: black;
   text-align: center;
   box-shadow: 0 1px 3px;
-    overflow: scroll;
+   /*  overflow: scroll; */
 }
 
 #popup1-Yes-Contents{
@@ -41,5 +41,5 @@ html {
 }
 
 #popup1-Contents{
-  display: block;
+    display: block;
 }

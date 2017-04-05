@@ -26,7 +26,12 @@
         <h4>Thank you for using our counter!</h4>
         <p>Would you like to add tags to this room?<p>
           <button class="yesBtn">Yes</button>
-          <button class="noBtn" onclick="toggle_visibility('popup-Box1-Position');">No</button>
+        <?php if (isset($_SERVER['HTTP_REFERER'])){
+          $link = $_SERVER['HTTP_REFERER'];
+          echo "<a class='noBtn' href='$link>No</a>}";}
+          else {
+            echo "<a class='noBtn' href='HomePage'>No</a>";
+          } ?>
         </div><!-- end of popup1-Contents -->
 
         <!-- contents to display upon clicking yes -->
@@ -36,12 +41,15 @@
             <form action ="/userTags.php" method = "POST">
             <p>The group tag indicates a group of the amount of people that are working in the room.</p>
             <h3>Group</h3>
-            <span>
-            <input type="checkbox" name="check2People" value="2">2<br>
-            <input type="checkbox" name="check3People" value="3">3<br>
-            <input type="checkbox" name="check4People" value="4">4<br>
-            <input type="checkbox" name="check5People" value="5">5+<br>
-          </span>
+            <fieldset class="ui-field-contain">
+              <select name="groupCheck" id="Group">
+                <option value="1"></option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </fieldset>
           </div>
 
           <div id="quietTag">
@@ -64,11 +72,11 @@
       </div><!-- popup-Container end-->
       </div><!-- popoup-wrapper end -->
     </div><!-- popup-Box1-Position end -->
-
+<!--
 <div id="wrapper">
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
-</div><!-- wrapper end-->
-
+</div>
+-->
 
 
 
@@ -94,6 +102,7 @@
         $(".cancelBtn").click(function(){
           $("#popup1-Yes-Contents").fadeOut();
           $("#popup1-Contents").fadeIn();
+          $('input[type=checkbox]').removeAttr('checked');
         });
       });
 // scrip that faces in popup1-Yes-Contents and faces out popup1-Contents when pushing apply button
