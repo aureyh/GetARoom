@@ -29,10 +29,13 @@
 <div data-role="navbar">
 <ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
 <li><a href="#info" data-icon="grid">Info</a></li>
+<li><a href="#map" data-icon="navigation">Campus Map</a></li>
+<!--Link to the accounts page from the nav bar-->
+<li><a href="Accounts.php" data-icon="user">Sign In</a></li>
 </ul>
 </div>
 
-
+<!---->
 </div>
 
 <div data-role="main" class="ui-content">
@@ -55,7 +58,7 @@
     <input type="date" name="date" id="date">
   </fieldset>
 
-  <!--script for setting time-->
+  <!--script for setting default time-->
   <script>
   $(document).ready(function() { //runs a function before site opens
 var fullDate = new Date(); //creates a date object
@@ -64,15 +67,20 @@ var fullDate = new Date(); //creates a date object
 var h = fullDate.getHours();
 var m = fullDate.getMinutes();
 var month = fullDate.getMonth()+1;
+var day = fullDate.getDate();
+if(day<10){
+  day = ""+0+day;  //formats the day to include 0 if under 10(eg. 1 = 01)
+}
 if(month<10){ //formats month from 0-11 -> 01-12
  month = ""+0+month;}
  if(h<10){ //formats hour from 0-24 -> 01-24    (Clock is 24h on mobile and 12 on desktop reason unknown)
   h = ""+0+h;}
   if(m<10){ //formats minute from 0-59 -> 01-59
    m = ""+0+m;}
+
 var time = h+':'+m;
 
-var date = fullDate.getFullYear()+"-"+month+"-"+fullDate.getDate();
+var date = fullDate.getFullYear()+"-"+month+"-"+day;
 
 //fill the date and time inputs to the varaibles
 
@@ -85,7 +93,7 @@ $("#date").val(date);
 
   <!--Building Filter-->
 
-    <fieldset class="ui-field-contain">
+    <fieldset  class="ui-field-contain">
       <label for="room">Filter Building</label>
       <select name="building" id="building">
         <option value="all">all</option>
@@ -103,7 +111,7 @@ $("#date").val(date);
       <label for="room">Filter Room Type</label>
       <select name="type" id="type">
         <option value="any">any</option>
-        <option value="Computer Labs">Computer Lab</option>
+        <option value="Computer Lab">Computer Lab</option>
         <option value="Classroom">Classroom</option>
 
       </select>
@@ -134,26 +142,22 @@ $("#date").val(date);
 <div data-role="header">
   <h1>Get A Room</h1>
 
+  <!--Adds nav bar-->
+<div data-role="navbar">
+<ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
+<li><a href="#home" data-icon="home">Home</a></li>
+
+<!--Link to the accounts page from the nav bar-->
+<li><a href="Accounts.php" data-icon="user">Sign In</a></li>
+</ul>
+</div>
+
+
+
 </div>
 
 <div data-role="main" class="ui-content">
 <h1>Get A Room: Results</h1>
-
-<!--Return button to go to homepage-->
-
-<a href="#home" class="ui-btn" name="return" id="return">Return</a>
-
-
-
-<!--php test-->
-<div>
-<?php
-
-//include("data/booking.php");
-
-?>
-</div>
-
 
 
 </div>
@@ -162,10 +166,22 @@ $("#date").val(date);
 <h2>&copy; GetARoom2017 </h2>
 </div>
 </div>
+
+
+
 <!--Info page-->
 <div data-role="page" id="info"  data-theme="d"> <!--Pages are given an id for linking-->
 <div data-role="header">
   <h1>Get A Room</h1>
+
+  <!--Adds nav bar-->
+<div data-role="navbar">
+<ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
+<li><a href="#home" data-icon="home">Home</a></li>
+
+</ul>
+</div>
+
 
 </div>
 
@@ -175,28 +191,62 @@ $("#date").val(date);
 <ul>
 	<li>
 	<h3>Problem Statement</h3>
-	<p>At UBCO, there is not enough space on campus in popular areas to study, complete homework or use computers. There is plenty of open classrooms or labs that students could use for studying, and yet the limited study spaces in areas such as the library remain over booked. Our application would alleviate the difficulty and inconvenience of finding empty spaces to work in for periods of time by displaying these rooms through a website. Nothing currently exists that would achieve the same goals as our solution. The closest thing would be a webapp by UBCO that lets you search specific classrooms one at a time to see if they are vacant. However, our software would show all available rooms at the current time and how long they would be available to work in.</p>
+	At UBCO, Students are frequently unable to find spaces to study and work. Although the library and study room are frequently at capacity there are plenty of spaces available, on campus such as; open classrooms and labs for students to use. Information on the availability of these rooms is difficult and inconvenient for students to find due to the limited functionality of UBCO’s online timetable webapp which only allows for finding the schedule for rooms one room at a time. With our program a student who is looking for a room can open our website, via computer or mobile, enter in the time they are available and our program will return all the spaces on campus currently open for them to use.
 	</li>
+
 	<li>
-		<h3>Goals</h3>
-		<p>We want to create a database of all the available study spaces on campus, including relevant information such as their location and times available. We then want to make this information accessible to users so that they can search for rooms based on desired parameters, such as the previously mentioned time or location. We are planning on implementing an interactive map so that users can see a visual representation of what rooms are open and at what times. If we implement a tracking system, we would also be able to visualize different levels of traffic for different rooms. </p>
+		<h3>User Accounts</h3>
+    Users can sign in or create an account from the sign in icon on the top right. Users with an account can "Rate" a room by applying a tag out of a set list to describe a visited room (eg.  Quiet). Repeated ratings of rooms over a short time may result in loss of the rating privilege. Users can also apply "Request" tags to a room which are displayed when a room is searched and request a behavior of the rooms occupants (eg. Groupwork, Quiet). GetARoom does not take responsibility for whether users honor Request tags applied to rooms.
 	</li>
-	<li>
-		<h3>User Interaction</h3>
-		<p>There is potential for user interaction that can be addressed in multiple ways. A useful addition would be the implementation of a ‘sign in’ feature so that users can show whether they are using a room or not. There are various ways this could be implemented. The first would be user accounts. This would allow us to track user information and patterns, and would open up a host of other features such as tracking where friends are and signing up for rooms. The issue with this feature is that it is dependent on users going through the process of creating an account and signing into a room. What would stop a user from simply seeing that a room is empty, ignoring the signing in process and using the room. We would need a way to work around this, and provide some incentive for users to use the sign in feature. An alternative method would be a gps feature where users allow a gps to track their location, which would in turn display whether they are in a room or not. This would be much more convenient for the user, but would provide less in depth information for us to use in our program. Another option that would avoid the hassle of account creation would be to make the app function with Facebook accounts. This would have some of the same issues as user created accounts, including signing in to rooms, minus the issue of creating an account, plus the added benefit of additional user data mining. </p>
-	</li>
+
 	<li>
 		<h3>Monetization</h3>
-		<p>It is possible that we could market our product to other universities. If this was the case, we could go even further and sell the information that we would track in student patterns. We would need to implement our program in such a way that it would be easy for us to make it applicable to other campuses and so that the databases were self-regulating at least to a certain extent. This would be a stretch goal for us, potentially a summer project or something along those lines, but it’s worth acknowledging.</p>
+	   No moetization is currently in place. Possible future means of monetizing include: marketing to the university, hosting advertisments and selling statistical information based on room use.
 	</li>
 </ul>
-<a href="#home" class="ui-btn" name="return" id="return">Return</a>
+
 </div>
 
 <div data-role="footer">
 <h2>&copy; GetARoom2017 </h2>
 </div>
 </div>
+
+
+<!--Map page-->
+<div data-role="page" id="map"  data-theme="d"> <!--Pages are given an id for linking-->
+<div data-role="header">
+  <h1>Get A Room</h1>
+
+  <!--Adds nav bar-->
+<div data-role="navbar">
+<ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
+<li><a href="#home" data-icon="home">Home</a></li>
+<li><a href="#info" data-icon="grid">Info</a></li>
+<!--Link to the accounts page from the nav bar-->
+<li><a href="Accounts.php" data-icon="user">Sign In</a></li>
+</div>
+
+</div>
+
+<div data-role="main" class="ui-content">
+<h1>Get A Room: Map</h1>
+<img src="map.png">
+
+<strong>FIPKE</strong>: FipKe Center <br>
+<strong>SCI</strong>: Science Building <br>
+<strong>EME</strong>: Engineering, Managment and Education <br>
+<strong>ART</strong>: Arts Building <br>
+<strong>LIB</strong>: Library Building
+
+</div>
+
+<div data-role="footer">
+<h2>&copy; GetARoom2017 </h2>
+</div>
+</div>
+
+
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-<head>
+<head><!---->
   <!--might allow for better scaling for mobile.-->
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <title>GetARoom</title>
@@ -16,6 +16,18 @@
 <?php //starting session for user verification
 session_start();
  ?>
+
+ <style>
+ th {
+     border-bottom: 1px solid #d6d6d6;
+ }
+
+ tr:nth-child(even) {
+     background: #262980;
+ }
+ </style>
+
+
 </head>
 <body>
 <!---->
@@ -27,7 +39,11 @@ session_start();
 	<!--Adds nav bar-->
 <div data-role="navbar">
 <ul>      <!--nav bar links to the info page,uses a grid icon and is called Info-->
-<li><a href="#info" data-icon="grid">Info</a></li>
+
+<li><a href="HomePage.php" data-icon="home">Home</a></li>
+
+<!--Link to the accounts page from the nav bar-->
+<li><a href="Accounts.php" data-icon="user">Sign In</a></li>
 </ul>
 </div>
 
@@ -36,6 +52,19 @@ session_start();
 
 <div data-role="main" class="ui-content">
   <h1>Get A Room: Search Results</h1>
+
+ <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+  <thead>
+    <tr>
+
+    <th>Room</th>
+    <th data-priority="1">Occupancy</th>
+    <th data-priority="2">Requests</th>
+    <th data-priority="3">Ratings</th>
+  </tr>
+</thread>
+<tbody>
+
 <?php
 #################################### BELOW COMMENT BLOCKS WITH CODE ARE DEPRICATED ##########################################
 /*  $sql = "CREATE TABLE ROOMS(
@@ -117,23 +146,41 @@ function convertDayToNum($str){ #used to convert string day to number
 			}
       //var_dump($startTIME);
     echo "START TIME: $input_time<br>";
-		if($building === "all"){
+		//returns all buildings of all types
+		if($building === "all" && $type === "any"){
 		  $sql = "SELECT DISTINCT name,Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddd", $VALID_DATE,$input_time_decimal,$input_time_decimal);
 			$ps->execute();
-      //echo "$startTIME";
-      //          echo "$VALID_DATE";
+			//echo "$startTIME";
+			//echo "$VALID_DATE";
 			return $ps;
-
-		} elseif ($building !== "all"){
-      $building = "$building%";
+		//returns specific building of all types
+		} elseif ($building !== "all" && $type === "any"){
+			$building = "$building%";
 			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("sddd",$building,$VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
 			return $ps;
-    }
+		//returns all buildings of specific type
+		} elseif ($building === "all" && $type !== "any"){
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE type LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("sddd",$type,$VALID_DATE,$startTIME,$startTIME);
+			$ps->execute();
+			return $ps;
+		//returns specific building of specific type
+		}elseif ($building !== "all" && $type !== "any"){
+			$building = "$building%";
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ? and type LIKE ? and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("ssddd",$building,$type,$VALID_DATE,$startTIME,$startTIME);
+			$ps->execute();
+			return $ps;
+		}
 	}
 	function returnList_both($start, $end, $date, $building, $type,$connection){ #queries database for all rooms not active in this time frame
     //echo $date;
@@ -169,24 +216,46 @@ function convertDayToNum($str){ #used to convert string day to number
 				$endTIME = $strEND[0];
 			}
       echo "START TIME: $start<br>END TIME: $end<br>";
+
+	  
+
       //echo "$endTIME    $startTIME";
       if($endTIME < $startTIME){
         exit("<p>Invalid User Input. Starting time must be before the end of a given time frame.<p><br><p><a href = 'HomePage.php'>Return</a></p>");
       }
-      if($building === "all"){
+	  //returns all buildings and all typs
+      if($building === "all" && $type === "any"){
 			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
   			$ps = $connection->prepare($sql);
   			$ps->bind_param("ddddddd", $VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME);
   			$ps->execute();
   			return $ps;
-  		} elseif ($building !== "all"){
-        $building = "$building%";
-        $sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
-        $ps = $connection->prepare($sql);
-        $ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building);
+		//returns specific building of all types
+  		} elseif ($building !== "all" && $type === "any"){
+			$building = "$building%";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building);
   			$ps->execute();
   			return $ps;
-      }
+		//returns all buildings of specific type
+		} elseif ($building === "all" && $type !== "any"){
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and type LIKE ? and ignores is FALSE";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$type);
+  			$ps->execute();
+  			return $ps;
+		//returns specific building of specific type
+		} elseif ($building !== "all" && $type !== "any"){
+			$building = "$building%";
+			$type = "$type%";
+			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and type LIKE ? and ignores is FALSE";
+			$ps = $connection->prepare($sql);
+			$ps->bind_param("dddddddss",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building,$type);
+  			$ps->execute();
+  			return $ps;
+		}
 	}//startTime <= start <=endTime or startTime <= end <= endTime or (start < startTime and end > startTime)
 	//Change username and password as needed.
 	//initializing relevant variables below.
@@ -267,13 +336,22 @@ function convertDayToNum($str){ #used to convert string day to number
     #if results exist, print results.
     if($results -> fetch()){
       //echo "Results:";
-      echo "<p>Please select a room</p>";
-      echo "<li><ul class = 'RoomName'><a href = 'counterButton.html'>Room: ".$location."</a></ul>
-      <ul class = 'OccCount'>Occupancy Count: $count </ul></li></p>";
-    while($results -> fetch()){
-      echo "<li><ul class = 'RoomName'><a href = 'counterButton.html'>Room: ".$location."</a></ul>
-      <ul class = 'OccCount'>Occupancy Count: $count </ul></li></p>";
-    }
+
+      echo "<p>Click a room for more information</p>";
+
+
+
+
+    do{
+      echo "<td class = 'RoomName'><a href = 'roomCalendar.php'>Room: ".$location."</a></td>
+      <td class = 'OccCount'>Occupancy Count: $count </td>
+      <td><a href = 'counterButton.php'>Request</a></td>
+      <td><a href = 'counterButton.php'>Rate</a></td></tr>";
+      //Request will show the current user Request
+      //Rating will show the top 3 user ratings
+    }while($results -> fetch());
+
+
 	}else{
     echo "<a href = 'HomePage.php'>No Rooms Found</a>";
   }
@@ -294,5 +372,20 @@ echo "Oops something went wrong!
 
 //}
 ?>
+
+</tbody>
+</table>
+
+
+</div>
+
+<div data-role="footer">
+<h2>&copy; GetARoom2017 </h2>
+</div>
+
+</div>
+
+
+
 </body>
 </html>
