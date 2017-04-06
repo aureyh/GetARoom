@@ -107,7 +107,7 @@ if ($connection->query($sql) === TRUE) {
  if($conn->query($sql2) ===false){
    echo "<br>Error with insert" . $conn->error;
  }*/
- header("REFRESH:3;url=HomePage.php");
+ header("refresh:3;url=HomePage.php");
  exit("<script>$('#processing').text('Room Booked. Returning to Account Page if Registered. Otherwise returning Home. Please wait a moment.');</script>");
 } else{
   exit("<script>$('#processing').text('Something is horribly wrong.<br><br> <a href = 'HomePage.php'>Please play again?</a>');</script>");
