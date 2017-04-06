@@ -73,7 +73,7 @@ if($conn->query($sql2) ===false){
         <div id="popup1-Yes-Contents">
           <h4>Please read the descriptions for the available room stickies. Please note stickies will disappear after 1 hour.</h4>
           <h4>Your participation will help us allocate space better.</h4>
-          <?php echo "JOHN JOHN TRON <form action ='userTags.php?room=$room' method = 'POST'>";?>
+            <?php echo  "<form action ='userTags.php?room=$room' method = 'POST'>";?>
           <div id="groupTag">
             <p>The group tag represents the size of the group registering a room for use.</p>
             <p>By registering we will be able to show other users how full a room is</p>
@@ -114,6 +114,7 @@ if($conn->query($sql2) ===false){
 <!--
 <div id="wrapper">
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
+
 </div>
 -->
 
