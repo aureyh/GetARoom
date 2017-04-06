@@ -1,3 +1,35 @@
+
+Skip to content
+This repository
+
+    Pull requests
+    Issues
+    Gist
+
+    @JCGits
+
+0
+0
+
+    0
+
+aureyh/GetARoom
+Code
+Issues 0
+Pull requests 0
+Projects 0
+Wiki
+Pulse
+Graphs
+GetARoom/listRooms.php
+c82b793 22 minutes ago
+@squirlsgit squirlsgit 0.8.6
+@squirlsgit
+@aureyh
+@dontaskimmad
+@squirlsgithub
+@JCGits
+393 lines (350 sloc) 13.7 KB
 <!DOCTYPE html>
 
 <html>
@@ -21,7 +53,6 @@ session_start();
  th {
      border-bottom: 1px solid #d6d6d6;
  }
-
  tr:nth-child(even) {
      background: #262980;
  }
@@ -74,10 +105,8 @@ session_start();
   type VARCHAR(15)
   )";
 */
-
 	//include 'COSC310.php';
 	//include 'ClassInfo_Functions.php';
-
 	/*select * from bookings where date = $_GET["date"] and location
 	//IS LIKE "$_GET["building"]%" and $_GET["start"] < startTime
 	or $_GET["end"] > endTime
@@ -85,23 +114,15 @@ session_start();
 	*/
 	/*
 	website stack help
-
 Here's how to do it for the current time:
-
 $day=strftime("%A",time());
-
 Or for a specific date:
-
 $day=strftime("%A",strtotime("2011-05-19"));
-
 */
-
 function dateDifference($datetime1 , $datetime2 , $differenceFormat)  #credit goes to http://php.net/manual/en/function.date-diff.php. i am familiar with the code, but this will make it easier.
 {
   $interval = date_diff($datetime1, $datetime2);
-
   return $interval->format($differenceFormat);
-
 }
 function convertDayToNum($str){ #used to convert string day to number
   switch($str){
@@ -121,7 +142,6 @@ function convertDayToNum($str){ #used to convert string day to number
     return 7;
     default:
     return FALSE;
-
   }
 }
 	function returnList_one_Time( $input_time, $date, $building, $type, $connection){ #When user inputs one time, this code will query database
@@ -216,9 +236,6 @@ function convertDayToNum($str){ #used to convert string day to number
 				$endTIME = $strEND[0];
 			}
       echo "START TIME: $start<br>END TIME: $end<br>";
-
-
-
       //echo "$endTIME    $startTIME";
       if($endTIME < $startTIME){
         exit("<p>Invalid User Input. Starting time must be before the end of a given time frame.<p><br><p><a href = 'HomePage.php'>Return</a></p>");
@@ -260,13 +277,11 @@ function convertDayToNum($str){ #used to convert string day to number
 	//Change username and password as needed.
 	//initializing relevant variables below.
   //echo "john";
-
 // I try below to add security that is excessive.
   try{
     /*session_unset();if ( !isset( $_SESSION["origURL"] ) )
       $_SESSION["origURL"] = $_SERVER["HTTP_REFERER"];
  var_dump($_SESSION["origURL"]);
-
   if (strpos($_SESSION["origURL"], '/GetARoom/HomePage.php') === false) {
       exit("Try to access site");
   }*/
@@ -346,13 +361,11 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     do{
       echo "<td class = 'RoomName'><a href = 'roomCalendar.php'>Room: ".$location."</a></td>
       <td class = 'OccCount'> $count </td>
-      <td><a href = 'counterButton.php'>Request</a></td>
+      <td><a href = 'counterButton.php?room=$room'>Request</a></td>
       <td><a href = 'counterButton.php'>Rate</a></td></tr>";
       //Request will show the current user Request
       //Rating will show the top 3 user ratings
     }while($results -> fetch());
-
-
 	}else{
     echo "<a href = 'HomePage.php'>No Rooms Found</a>";
   }
@@ -365,12 +378,10 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
 echo "Oops something went wrong!
   <br>
   <p><a href = 'HomePage.php'>But try again?</a></p>";
-
 }finally{ #always close.
       $connection -> close();
       $results -> close();
 }
-
 //}
 ?>
 

@@ -15,6 +15,39 @@
 
 <body id ="jordansbody">
 
+<?php
+session_start();
+if(!isset($room) || !isset($_GET["location"])){header("Refresh:0; url=HomePage.php");}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "maindb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+//check connection
+if($conn->connect_error){
+  die("Connection failed: " . $conn->connect_error);
+}
+
+if(isset($_SESSION["user"])){
+  $user = $_SESSION["user"];
+}
+else {
+  $user = null;
+}
+
+$room = $_GET["location"];
+
+$sql = "INSERT INTO roomschedule (starttime, endtime, user, clientcount, room)
+        VALUES (NOW(), timestampadd(HOUR, 1, NOW(), '$user', 1, '$room')";
+
+if($conn->query($sql)===false){
+  echo "Error with insert" . $conn->error;
+}
+       ?>
+
+
 
 
 <!--Outer popup box -->
@@ -25,24 +58,19 @@
 
         <div id="popup1-Contents">
         <h4>Thank you for using our counter!</h4>
-        <p>Would you like to tag this room?<p>
-          <button class="yesBtn">Yes</button>
-        <?php if (isset($_SERVER['HTTP_REFERER'])){
-          $link = $_SERVER['HTTP_REFERER'];
-          echo "<a class='noBtn' href='$link>No</a>}";}
-          else {
-            echo "<a class='noBtn' href='HomePage'>No</a>";
-          } ?>
+        <p>Would you like to sticky this room?<p>
+        <button class="yesBtn">Yes</button>
+        <input type="button" onclick="location.href='homePage.php';" value="No" />
         </div><!-- end of popup1-Contents -->
 
         <!-- contents to display upon clicking yes -->
         <div id="popup1-Yes-Contents">
-          <h4>Please read the descriptions for the available room tags. Please note stickies will disappear after 1 hour.</h4>
+          <h4>Please read the descriptions for the available room stickies. Please note stickies will disappear after 1 hour.</h4>
           <h4>Your participation will help us allocate space better.</h4>
           <div id="groupTag">
-            <form action ="/userTags.php" method = "POST">
-            <p>The group tag represents the size of the group registering a room for use.</p>
-            <p>By registering we will be able to show other users how full a room is</p>
+            <form action ="/userStickies.php" method = "POST">
+            <p>The group sticky represents the size of the group registering a room for use.</p>
+            <p>By registering we will be able to show other users how full a room is. If you're not in a group don't worry, the occupancy will already show you're there!</p>
             <p></p>
             <h3>Group</h3>
             <fieldset class="ui-field-contain">
@@ -68,10 +96,10 @@
             <h3>Private</h3>
             <input type="checkbox" name="privateCheck" value="private">Private Room<br>
           </div>
-          <p>When you have selected your preffered tags, please hit apply. </p>
+          <p>When you have selected your preffered stickies, please press apply. </p>
           <input type="submit" value="Apply">
         </form> <!-- End of form tag to apply check box info to php file -->
-          <button class="cancelBtn" onclick="toggle_visibility('popup-Box1-Position');">Cancel</button>
+          <input type="button" onclick="location.href='homePage.php';" value="Cancel" />
         </div><!-- End of popup1-Yes-Contents -->
 
       </div><!-- popup-Container end-->
@@ -81,8 +109,8 @@
 <div id="wrapper">
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
 <<<<<<< HEAD
-</div><!-- wrapper end-->
 </div>
+-->
 
 <script>
 // Visibility toggle function for pop-up window
