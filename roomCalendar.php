@@ -55,22 +55,65 @@ tr:nth-child(even) {
      <thead>
        <tr>
           <th data-priority="1">Time</th>
-         <th>Bookings</th>
-
+          <th>Booking Duration</th>
+         <th>Stuck With</th>
+         <th>Booked By</th>
        </tr>
        <!--List of bookings for given room-->
      </thead>
      <tbody>
-       <tr><td>Place Holder Time</td>
-         <td>Place Holder Booking</td></tr>
-         <tr><td>Place Holder Time</td>
-           <td>Place Holder Booking</td></tr>
-           <tr><td>Place Holder Time</td>
-             <td>Place Holder Booking</td></tr>
-             <tr><td>Place Holder Time</td>
-               <td>Place Holder Booking</td></tr>
-               <tr><td>Place Holder Time</td>
-                 <td>Place Holder Booking</td></tr>
+       <?php
+       try {
+         $servername = "localhost";
+         $username = "root";
+         $password = "";
+         $dbname = "mainDB";
+         if(!isset($_GET['room'])){
+         exit("No room selected. Please return home.");
+       } else {
+           $room = $_GET['room'];
+         }
+         $connection = new mysqli($servername, $username, $password, $dbname); #makes connection
+         $error = mysqli_connect_error();
+         if($error != null)
+         {
+           $output = "<p>Unable to connect to database!</p>";
+           exit();
+         }
+         $sql = "SELECT starttime,endtime,stickies,user FROM roomschedule WHERE room = ?";
+           $ps = $connection->prepare($sql);
+           $ps->bind_param("s",$room);
+           $ps->execute();
+          $ps -> bind_result($starttime,$endtime,$stickies,$user);
+          if($ps -> fetch()){
+          do{
+            $sticky = explode("^",$stickies,10);
+            $tags = "";
+            if(empty($sticky[0]) and empty($sticky[1])){ $tags = "NA";} else {foreach($sticky as $tag){$tags = $tags.', '.$tag;}}
+            if(empty($user) or $user = null){
+              $user = "NA";
+            }
+            echo "<tr>
+            <td>$starttime</td>
+            <td>1 Hour</td>
+            <td>$tags</td>
+            <td>$user</td>
+            </tr>";
+            //Request will show the current user Request
+            //Rating will show the top 3 user ratings
+          }while($ps -> fetch());
+        }else{
+          echo "<tr><td>NA</td>
+            <td>No Booking</td><td>NA</td><td>NA</td></tr>";
+        }
+       } catch(Exception $e){
+         exit("<br><a href = 'HomePage.php'>Unknown Error Occured</a>");
+       } finally{
+         $connection -> close();
+       }
+
+
+        ?>
      </tbody>
    </table>
    <!--Returns to Search results-->

@@ -334,7 +334,7 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     }
     if($results -> fetch()){
     do{
-      echo "<td class = 'RoomName'><a href = 'roomCalendar.php'>Room: ".$location."</a></td>
+      echo "<td class = 'RoomName'><a href = 'roomCalendar.php?room=$location'>Room: ".$location."</a></td>
       <td class = 'OccCount'> $count </td>
       <td><a href = 'counterButton.php?room=$location'>Request</a></td>
       <td><a href = 'counterButton.php'>Rate</a></td></tr>";

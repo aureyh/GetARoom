@@ -72,8 +72,8 @@ if($conn->query($sql2) ===false){
         <div id="popup1-Yes-Contents">
           <h4>Please read the descriptions for the available room stickies. Please note stickies will disappear after 1 hour.</h4>
           <h4>Your participation will help us allocate space better.</h4>
-          <div id="groupTag">
             <?php echo  "<form action ='userTags.php?room=$room' method = 'POST'>";?>
+          <div id="groupTag">
             <p>The group tag represents the size of the group registering a room for use.</p>
             <p>By registering we will be able to show other users how full a room is</p>
             <p></p>
@@ -102,7 +102,7 @@ if($conn->query($sql2) ===false){
             <input type="checkbox" name="privateCheck" value="private">Private Room<br>
           </div>
           <p>When you have selected your preffered stickies, please press apply. </p>
-        <input type="submit" value="Apply" onclick="location.href='homePage.php';">
+        <input type="submit" value="Apply">
         </form> <!-- End of form tag to apply check box info to php file -->
           <input type="button" onclick="location.href='homePage.php';" value="Cancel" />
         </div><!-- End of popup1-Yes-Contents -->
@@ -113,7 +113,7 @@ if($conn->query($sql2) ===false){
 <!--
 <div id="wrapper">
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
-<<<<<<< HEAD
+
 </div>
 -->
 
