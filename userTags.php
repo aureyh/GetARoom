@@ -16,9 +16,9 @@ try{
 	}
 
 if(!isset($_SERVER['HTTP_REFERER'])){
-  header("REFRESH:0;url=HomePage");
+  header("REFRESH:0;url=HomePage.php");
 } elseif($_SERVER['HTTP_REFERER']) != 'http://localhost/GetARoom/counterButton') {
-  header("REFRESH:0;url=HomePage");
+  header("REFRESH:0;url=HomePage.php");
 }
 
 if(!isset($_POST['groupCheck']) && !isset($_POST['quietCheck'] && !isset($_POST['privateCheck'])){

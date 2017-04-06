@@ -257,8 +257,10 @@ function convertDayToNum($str){ #used to convert string day to number
 
   if(!isset($_SERVER['HTTP_REFERER'])){
     header("REFRESH:0;url=HomePage.php");
+    exit();
   } elseif($_SERVER['HTTP_REFERER'] != 'http://localhost/GetARoom/HomePage') {
-    header("REFRESH:0;url=listRooms.php");
+    header("REFRESH:0;url=HomePage.php");
+    exit();
   }
 	$servername = "localhost";
 	$username = "root";
