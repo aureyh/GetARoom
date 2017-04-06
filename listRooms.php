@@ -59,7 +59,7 @@ session_start();
 
     <th>Room</th>
     <th data-priority="1">Occupancy</th>
-    <th data-priority="2">Requests</th>
+    <th data-priority="2">Request Room</th>
     <th data-priority="3">Ratings</th>
   </tr>
 </thread>
@@ -321,7 +321,7 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
 	if($error != null)
 	{
 	  $output = "<p>Unable to connect to database!</p>";
-	  exit($output);
+	  exit();
 	}
 	else { //Query database
 		if(empty($end)){
@@ -337,7 +337,7 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     $connection2 = new mysqli($servername, $username, $password, $dbname);
     $sql2 = "Delete From roomschedule WHERE endtime <= Now()";
     if ($connection2->query($sql2) === TRUE) {
-      echo "<p>Click a room for more information</p>";
+      echo "<p>Click on a room for more information</p>";
     } else {
     exit("Something went horribly wrong.
     <p><a href = 'HomePage.php'>Return</a></p>");
@@ -346,7 +346,7 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     do{
       echo "<td class = 'RoomName'><a href = 'roomCalendar.php'>Room: ".$location."</a></td>
       <td class = 'OccCount'> $count </td>
-      <td><a href = 'counterButton.php?room=$room'>Request</a></td>
+      <td><a href = 'counterButton.php?room=$location'>Request</a></td>
       <td><a href = 'counterButton.php'>Rate</a></td></tr>";
       //Request will show the current user Request
       //Rating will show the top 3 user ratings

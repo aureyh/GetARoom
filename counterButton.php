@@ -27,12 +27,6 @@
         <h4>Thank you for using our counter!</h4>
         <p>Would you like to tag this room?<p>
           <button class="yesBtn">Yes</button>
-        <?php if (isset($_SERVER['HTTP_REFERER'])){
-          $link = $_SERVER['HTTP_REFERER'];
-          echo "<a class='noBtn' href='$link>No</a>}";}
-          else {
-            echo "<a class='noBtn' href='HomePage'>No</a>";
-          } ?>
         </div><!-- end of popup1-Contents -->
 
         <!-- contents to display upon clicking yes -->
@@ -40,7 +34,8 @@
           <h4>Please read the descriptions for the available room tags. Please note stickies will disappear after 1 hour.</h4>
           <h4>Your participation will help us allocate space better.</h4>
           <div id="groupTag">
-            <form action ="/userTags.php" method = "POST">
+            <?php echo  "<form action ='/userTags.php?room=$room' method = 'POST'>"?>
+            <form action ="/userTags.php?room=$room" method = "POST">
             <p>The group tag represents the size of the group registering a room for use.</p>
             <p>By registering we will be able to show other users how full a room is</p>
             <p></p>
