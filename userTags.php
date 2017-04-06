@@ -17,18 +17,18 @@ try{
 
 if(!isset($_SERVER['HTTP_REFERER'])){
   header("REFRESH:0;url=HomePage.php");
-} elseif($_SERVER['HTTP_REFERER']) != 'http://localhost/GetARoom/counterButton') {
+} elseif($_SERVER['HTTP_REFERER'] != 'http://localhost/GetARoom/counterButton') {
   header("REFRESH:0;url=HomePage.php");
 }
 
-if(!isset($_POST['groupCheck']) && !isset($_POST['quietCheck'] && !isset($_POST['privateCheck'])){
+if(!isset($_POST['groupCheck']) && !isset($_POST['quietCheck']) && !isset($_POST['privateCheck'])){
   $url = $_SERVER['HTTP_REFERER'];
   echo "Incomplete form.";
   header("REFRESH:3;url=$url");
 }
-if(isset($_POST['groupCheck']){$groupCheck = $_POST['groupCheck'] -1;} else {$groupCheck = 0; }
-if(isset($_POST['quietCheck']){$quietCheck = $_POST['quietCheck'];} else {$quietCheck = null; }
-if(isset($_POST['privateCheck']){$privateCheck = $_POST['privateCheck'];} else {$privateCheck = null; }
+if(isset($_POST['groupCheck'])){$groupCheck = $_POST['groupCheck'] -1;} else {$groupCheck = 0; }
+if(isset($_POST['quietCheck'])){$quietCheck = $_POST['quietCheck'];} else {$quietCheck = null; }
+if(isset($_POST['privateCheck'])){$privateCheck = $_POST['privateCheck'];} else {$privateCheck = null; }
 if(isset($_SESSION['user'])){$user = $_SESSION['user'];} else {$user = null;}
 $sql = "INSERT INTO roomschedule (clientcount,room,user,starttime,endtime)VALUES ($groupCheck, $room,$user,NOW(),TIMESTAMPADD(HOUR,1,NOW()))";
 if ($connection->query($sql) === TRUE) {
@@ -40,7 +40,7 @@ if ($connection->query($sql) === TRUE) {
  }
  header("REFRESH:3;url=HomePage");
 } else{
-  exit("<br>Something is horribly wrong.<br> <a href = 'HomePage'>Please play again</a>")
+  exit("<br>Something is horribly wrong.<br> <a href = 'HomePage'>Please play again</a>");
 }
 }
 catch(Exception $e){
