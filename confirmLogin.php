@@ -1,7 +1,7 @@
 <?php
   session_start();
   $method = $_SERVER["REQUEST_METHOD"];
-  if(!isset($_SESSION["userID"]) && $method == "POST" && isset($_POST["userName"]) && isset($_POST["password"]){
+  if(!isset($_SESSION["user"]) && $method == "POST" && isset($_POST["userName"]) && isset($_POST["password"]){
     $host = "localhost";
     $database = "mainDB";
     $username = "root";
@@ -22,7 +22,7 @@
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        $_SESSION["userID"] = $row["username"];
+        $_SESSION["user"] = $row["username"];
         echo "Login Succesful";
         header("Refresh:1; url=HomePage.php");
       }

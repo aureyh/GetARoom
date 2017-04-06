@@ -1,3 +1,4 @@
+Processing...
 <?php
 
 try{
@@ -30,15 +31,20 @@ if(isset($_POST['quietCheck']){$quietCheck = $_POST['quietCheck'];} else {$quiet
 if(isset($_POST['privateCheck']){$privateCheck = $_POST['privateCheck'];} else {$privateCheck = null; }
 if(isset($_SESSION['user'])){$user = $_SESSION['user'];} else {$user = null;}
 $sql = "INSERT INTO roomschedule (clientcount,room,user,starttime,endtime)VALUES ($groupCheck, $room,$user,NOW(),TIMESTAMPADD(HOUR,1,NOW()))";
-if ($connection2->query($sql2) === TRUE) {
- echo"Room Booked. Returning to Home.";
+if ($connection->query($sql) === TRUE) {
+ echo"<br>Room Booked. Returning to Home.";
+ $sql2 = "UPDATE rooms, roomschedule SET rooms.Count =
+ (Select Sum(roomschedule.clientcount) From roomschedule where rooms.name = roomschedule.room)";
+ if($conn->query($sql2) ===false){
+   echo "<br>Error with insert" . $conn->error;
+ }
  header("REFRESH:3;url=HomePage");
 } else{
-  exit("Something is horribly wrong.<br> <a href = 'HomePage'>Please play again</a>")
+  exit("<br>Something is horribly wrong.<br> <a href = 'HomePage'>Please play again</a>")
 }
 }
 catch(Exception $e){
-  exit("<a href = 'HomePage'>Unknown Error</a>");
+  exit("<br><a href = 'HomePage'>Unknown Error Occured</a>");
 } finally{
   $connection -> close();
 }
