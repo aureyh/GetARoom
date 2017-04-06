@@ -17,6 +17,7 @@
 
 <?php
 session_start();
+
 if(!isset($_GET["room"])){header("Refresh:0; url=HomePage.php");}
 
 $servername = "localhost";
