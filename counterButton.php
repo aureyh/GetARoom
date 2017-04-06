@@ -15,6 +15,39 @@
 
 <body id ="jordansbody">
 
+<?php
+session_start();
+if(!isset($_GET["room"])){header("Refresh:0; url=HomePage.php");}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "maindb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+//check connection
+if($conn->connect_error){
+  die("Connection failed: " . $conn->connect_error);
+}
+
+if(isset($_SESSION["user"])){
+  $user = $_SESSION["user"];
+}
+else {
+  $user = null;
+}
+
+$room = $_GET["room"];
+
+$sql = "INSERT INTO roomschedule (starttime, endtime, user, clientcount, room)
+        VALUES (NOW(), timestampadd(HOUR, 1, NOW(), '$user', 1, '$room')";
+
+if($conn->query($sql)===false){
+  echo "Error with insert" . $conn->error;
+}
+       ?>
+
+
 
 
 <!--Outer popup box -->
@@ -26,12 +59,12 @@
         <div id="popup1-Contents">
         <h4>Thank you for using our counter!</h4>
         <p>Would you like to tag this room?<p>
-          <button class="yesBtn">Yes</button>
+        <button class="yesBtn">Yes</button>
+        <input type="button" onclick="location.href='homePage.php';" value="No" />
         </div><!-- end of popup1-Contents -->
-
         <!-- contents to display upon clicking yes -->
         <div id="popup1-Yes-Contents">
-          <h4>Please read the descriptions for the available room tags. Please note stickies will disappear after 1 hour.</h4>
+          <h4>Please read the descriptions for the available room stickies. Please note stickies will disappear after 1 hour.</h4>
           <h4>Your participation will help us allocate space better.</h4>
           <div id="groupTag">
             <?php echo  "<form action ='/userTags.php?room=$room' method = 'POST'>"?>
@@ -63,10 +96,10 @@
             <h3>Private</h3>
             <input type="checkbox" name="privateCheck" value="private">Private Room<br>
           </div>
-          <p>When you have selected your preffered tags, please hit apply. </p>
+          <p>When you have selected your preffered stickies, please press apply. </p>
           <input type="submit" value="Apply">
         </form> <!-- End of form tag to apply check box info to php file -->
-          <button class="cancelBtn" onclick="toggle_visibility('popup-Box1-Position');">Cancel</button>
+          <input type="button" onclick="location.href='homePage.php';" value="Cancel" />
         </div><!-- End of popup1-Yes-Contents -->
 
       </div><!-- popup-Container end-->
@@ -76,8 +109,8 @@
 <div id="wrapper">
   <button id= "+1" onclick="toggle_visibility('popup-Box1-Position');" data-inline="true">+1</button>
 <<<<<<< HEAD
-</div><!-- wrapper end-->
 </div>
+-->
 
 <script>
 // Visibility toggle function for pop-up window
