@@ -50,7 +50,7 @@ tr:nth-child(even) {
 
 
 <div data-role="main" class="ui-content">
-  <h1>Room X</h1>
+  <<?php if(isset($_GET['room'])){$room = $_GET['room']; echo "<h1>Room $room</h1>";} else{echo "<h1>Room X</h1>";}?>
    <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
      <thead>
        <tr>
@@ -61,16 +61,9 @@ tr:nth-child(even) {
        <!--List of bookings for given room-->
      </thead>
      <tbody>
-       <tr><td>Place Holder Time</td>
-         <td>Place Holder Booking</td></tr>
-         <tr><td>Place Holder Time</td>
-           <td>Place Holder Booking</td></tr>
-           <tr><td>Place Holder Time</td>
-             <td>Place Holder Booking</td></tr>
-             <tr><td>Place Holder Time</td>
-               <td>Place Holder Booking</td></tr>
-               <tr><td>Place Holder Time</td>
-                 <td>Place Holder Booking</td></tr>
+       <tr><td>No Available Time</td>
+         <td>No Available Booking</td></tr>
+         
      </tbody>
    </table>
    <!--Returns to Search results-->
