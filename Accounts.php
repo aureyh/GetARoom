@@ -40,7 +40,7 @@
 <div data-role="main" class="ui-content">
 <h1>Get A Room: Sign In</h1>
 <!--Form for the user sign in. It's currently set to use HomePage since it should end at the homepage after the data is stored in the database-->
-<form method="GET"action="HomePage.php" id="formid">
+<form method="POST"action="HomePage.php" id="formid">
 <!--Labels and text fiels for username and password-->
 <label for="userName">User Name:</label>
 <input type="text" name="userName" id="userName">
