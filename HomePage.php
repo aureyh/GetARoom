@@ -42,7 +42,7 @@
   <h1>Get A Room: Search</h1>
 
   <!--Start of form using test.php temporarity to test submit-->
-    <form method="GET"action="listRooms.php" id="formid">
+    <form method="GET"action="Results.php" id="formid">
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
