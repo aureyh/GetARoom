@@ -119,6 +119,7 @@ $("#date").val(date);
 
   <!--Search Button-->
 <input type="submit" value="Search">
+
 <!--  <a href="#results" class="ui-btn" name="search" id="search">Search</a>  -->
 
 </form>

@@ -268,12 +268,22 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     exit("Something went horribly wrong.
     <p><a href = 'HomePage.php'>Return</a></p>");
     }
+
     if($results -> fetch()){
     do{
       echo "<td class = 'RoomName'><a href = 'roomCalendar.php?room=$location'>Room: ".$location."</a></td>
-      <td class = 'OccCount'> $count  <a href = 'counterButton.php'>+1</a></td>
-      <td><a href = 'counterButton.php?room=$location'>Request</a></td>
-      <td><a href = 'counterButton.php'>Comment</a></td></tr>";
+      <td class = 'OccCount'> $count  <a href='#' class='ui-btn ui-btn-inline'>+1</a> </td>
+      <td>
+
+      <label for='select-native-4' class='ui-hidden-accessible' data-inline='true'>Native select:</label>
+<select name='select-native-4' id='select-native-4'>
+    <option value='small'>Indifferent</option>
+    <option value='small'>Quiet</option>
+    <option value='medium'>Social</option>
+    <option value='large'>Presentation</option>
+</select>
+      </td>
+      <td><a href = 'counterButton.php' class='ui-btn ui-btn-inline'>Comment</a></td></tr>";
       //Request will show the current user Request
       //Rating will show the top 3 user ratings
     }while($results -> fetch());
