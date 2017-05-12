@@ -270,7 +270,8 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     }
 
     if($results -> fetch()){
-    do{
+    do{ //will display each room that matches criteria
+			//and a occupancy button, request button and comment button.
       echo "<td class = 'RoomName'><a href = 'roomCalendar.php?room=$location'>Room: ".$location."</a></td>
       <td class = 'OccCount'> $count  <a href='#' class='ui-btn ui-btn-inline'>+1</a> </td>
       <td>
@@ -283,9 +284,10 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     <option value='large'>Presentation</option>
 </select>
       </td>
-      <td><a href = 'counterButton.php' class='ui-btn ui-btn-inline'>Comment</a></td></tr>";
-      //Request will show the current user Request
-      //Rating will show the top 3 user ratings
+      <td><a href = 'comments.php' class='ui-btn ui-btn-inline'>Comment</a></td></tr>";
+
+
+
     }while($results -> fetch());
 	}else{
     echo "<a href = 'HomePage.php'>No Rooms Found</a>";
