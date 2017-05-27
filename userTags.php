@@ -90,7 +90,6 @@ if(!isset($_POST['groupCheck']) && !isset($_POST['quietCheck']) && !isset($_POST
   exit("<script>$('#processing').text('Incomplete Form. Hold on as we redirect you to the form page.');</script>");
 }
 if(isset($_POST['groupCheck'])){$groupCheck = $_POST['groupCheck'] -1;} else {$groupCheck = 0; }
-
 if(isset($_POST['quietCheck'])){$quietCheck = $_POST['quietCheck'];} else {$quietCheck = ""; }
 if(isset($_POST['privateCheck'])){$privateCheck = $_POST['privateCheck'];} else {$privateCheck = ""; }
 if(isset($_SESSION['user'])){$user = $_SESSION['user'];} else {$user = null;}
