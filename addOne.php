@@ -15,6 +15,6 @@ $sticky = $quietCheck.'^'.$privateCheck; //can later explode database element wi
 if(isset($_GET['count'])){$newcount = $_GET['count'] + 1;}else{$newcount = 1;}
 //Register to Room
 $register = "INSERT INTO roomschedule (starttime, endtime, user, clientcount, room,stickies) VALUES (NOW(), timestampadd(HOUR, 1, NOW()),'$user',1, '$room','$sticky')";
-if ($connection->query($register) === TRUE) {echo "$newcount <button id = $room value = $newcount class='ui-btn ui-btn-inline'>+1</button>";} else {$newcount = $newcount -1; echo "$newcount  <button class='ui-btn ui-btn-inline'>+1</button>";}
+if ($connection->query($register) === TRUE) {echo "$newcount";} else {$newcount = $newcount -1; echo "$newcount";}
 
 ?>

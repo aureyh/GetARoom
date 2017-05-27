@@ -73,7 +73,7 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     do{ //will display each room that matches criteria
 			//and a occupancy button, request button and comment button.
       echo "<td class = 'RoomName'><a href = 'roomCalendar.php?room=$location'>Room: ".$location."</a></td>
-      <td class = 'OccCount'> $count  <button id = '$location' value = $count class='ui-btn ui-btn-inline'>+1</button> </td>
+      <td class = 'OccCount'> <span>$count</span>  <button id = '$location' value = $count class='ui-btn ui-btn-inline'>+1</button> </td>
       <td>
 
       <label for='select-native-4' class='ui-hidden-accessible' data-inline='true'>Native select:</label>

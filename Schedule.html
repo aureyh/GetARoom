@@ -20,17 +20,6 @@ th {     border-bottom: 1px solid #d6d6d6; }
 tr:nth-child(even) {     background: #262980;}
 </style>
 <script>
-function pushbutton(tallow){
-   button = $(tallow);
-   console.log(tallow);
-  var room = button.attr("id");
-  var currcount = button.attr("value");
-  console.log(currcount);
-console.log("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-
- newcount.done(function(newdata){console.log(newdata);button.parent().html(newdata)});
-}
 $(function() {
   print();
 setInterval(print,3600000);
@@ -50,7 +39,10 @@ function print(){
     console.log(currcount);
   console.log("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
   var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-   newcount.done(function(newdata){console.log(newdata);button.parent().html(newdata)});
+   newcount.done(function(newdata){console.log(newdata);button.parent().find('span').html(newdata)});
+   var plusonetocount = Number(currcount) + 1;
+   console.log("this is the new count: ".concat(plusonetocount) );
+   button.attr('value', plusonetocount);
  });
  });
  results.fail(function(jqXHR) {console.log("Error: " + jqXHR.status);});
