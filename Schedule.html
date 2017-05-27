@@ -31,7 +31,6 @@ var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(cu
 
  newcount.done(function(newdata){console.log(newdata);button.parent().html(newdata)});
 }
-
 $(function() {
   print();
 setInterval(print,3600000);
@@ -43,6 +42,16 @@ function print(){
  results.done(function(data) {
   console.log(data);
   $("tbody").html(data);
+  $("button").click(function(){
+     button = $(this);
+     console.log(button);
+    var room = button.attr("id");
+    var currcount = button.attr("value");
+    console.log(currcount);
+  console.log("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
+  var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
+   newcount.done(function(newdata){console.log(newdata);button.parent().html(newdata)});
+ });
  });
  results.fail(function(jqXHR) {console.log("Error: " + jqXHR.status);});
  results.always(function() {console.log("done");});
