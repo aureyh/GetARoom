@@ -16,7 +16,8 @@ Schedule.html<!DOCTYPE html>
 <?php session_start();
 //below is a part of extra security that is optional.
 //if ( !isset( $_SESSION["origURL"] ) )
-//    $_SESSION["origURL"] = $_SERVER["HTTP_REFERER"]; ?>
+//    $_SESSION["origURL"] = $_SERVER["HTTP_REFERER"];
+?>
 </head>
 
 <body> <!---->
@@ -42,7 +43,7 @@ Schedule.html<!DOCTYPE html>
   <h1>Get A Room: Search</h1>
 
   <!--Start of form using test.php temporarity to test submit-->
-    <form method="GET"action="Schedule.html" id="formid">
+    <form method="GET"action="Schedule.php" id="formid">
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
