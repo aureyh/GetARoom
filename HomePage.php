@@ -1,4 +1,4 @@
-Schedule.html<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -13,6 +13,7 @@ Schedule.html<!DOCTYPE html>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <?php session_start();
 //below is a part of extra security that is optional.
 //if ( !isset( $_SESSION["origURL"] ) )
@@ -43,7 +44,7 @@ Schedule.html<!DOCTYPE html>
   <h1>Get A Room: Search</h1>
 
   <!--Start of form using test.php temporarity to test submit-->
-    <form method="GET"action="Schedule.php" id="formid">
+    <form method="GET"action="Schedule.php" id="formid" >
 
       <!--Time Select-->
       <fieldset class="ui-field-contain">
@@ -62,7 +63,7 @@ Schedule.html<!DOCTYPE html>
   <!--script for setting default time-->
   <script>
   $(document).ready(function() { //runs a function before site opens
-var fullDate = new Date(); //creates a date object
+    var fullDate = new Date(); //creates a date object
 //gets date and time from date object
 
 var h = fullDate.getHours();

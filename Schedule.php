@@ -15,13 +15,10 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <style>
-  th {     border-bottom: 1px solid #d6d6d6; }
-  tr:nth-child(even) {     background: #262980;}
-  </style>
+
+
 </head>
-<body>
+
 <!---->
 <!-- All pages are within Div tags-->
 <div data-role="page" id="home" data-theme="d">
@@ -43,6 +40,38 @@
 </div>
 
 <div data-role="main" class="ui-content">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      print();
+    setInterval(print,3600000);
+    function print(){
+     var url = $(location).attr('href');
+     var urlarray = url.split('?');
+     var getrequest = urlarray[1];
+     var results = $.get("listRooms.php?".concat(getrequest));
+     results.done(function(data) {
+      console.log(data);
+      $("tbody").html(data);
+      $("button").click(function(){
+         button = $(this);
+         console.log(button);
+        var room = button.attr("id");
+        var currcount = button.attr("value");
+        console.log(currcount);
+      console.log("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
+      var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
+       newcount.done(function(newdata){console.log(newdata);button.parent().find('span').html(newdata)});
+       var plusonetocount = Number(currcount) + 1;
+       console.log("this is the new count: ".concat(plusonetocount) );
+       button.attr('value', plusonetocount);
+     });
+     });
+     results.fail(function(jqXHR) {console.log("Error: " + jqXHR.status);});
+     results.always(function() {console.log("done");});
+     }
+    });
+    </script>
   <h1>Get A Room: Search Results</h1>
 
  <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
@@ -59,37 +88,6 @@
 <tbody>
   <!--content goes here-->
 
-  <script>
-  $(document).ready(function(){
-    print();
-  setInterval(print,3600000);
-  function print(){
-   var url = $(location).attr('href');
-   var urlarray = url.split('?');
-   var getrequest = urlarray[1];
-   var results = $.get("listRooms.php?".concat(getrequest));
-   results.done(function(data) {
-    console.log(data);
-    $("tbody").html(data);
-    $("button").click(function(){
-       button = $(this);
-       console.log(button);
-      var room = button.attr("id");
-      var currcount = button.attr("value");
-      console.log(currcount);
-    console.log("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-    var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-     newcount.done(function(newdata){console.log(newdata);button.parent().find('span').html(newdata)});
-     var plusonetocount = Number(currcount) + 1;
-     console.log("this is the new count: ".concat(plusonetocount) );
-     button.attr('value', plusonetocount);
-   });
-   });
-   results.fail(function(jqXHR) {console.log("Error: " + jqXHR.status);});
-   results.always(function() {console.log("done");});
-   }
-  });
-  </script>
 </tbody>
 </table>
 
