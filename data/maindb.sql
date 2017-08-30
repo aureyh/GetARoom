@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2017 at 04:15 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Aug 30, 2017 at 07:39 AM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -89511,79 +89511,212 @@ CREATE TABLE `rooms` (
   `capacity` int(3) DEFAULT NULL,
   `features` varchar(100) DEFAULT NULL,
   `type` varchar(15) DEFAULT NULL,
-  `ignores` tinyint(1) DEFAULT NULL
+  `ignores` tinyint(1) DEFAULT NULL,
+  `Count` int(11) NOT NULL,
+  `stickies` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`name`, `capacity`, `features`, `type`, `ignores`) VALUES
-('ART 102', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 103', 121, 'Projector - Overhead transparency, A/V System, Whiteboard, Microphone', 'Classroom', 0),
-('ART 104', 46, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 106', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 108', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 110', 46, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 112', 48, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 114', 100, 'Tables, Projector - Overhead transparency, DVD/Blu-ray, A/V System, Microphone', 'Classroom', 0),
-('ART 202', 48, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 203', 24, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 204', 48, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 206', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 208', 42, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 210', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 214', 93, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone, DVD/Blu-ray', 'Classroom', 0),
-('ART 215', 41, 'PC', 'Computer Lab', 0),
-('ART 218', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('ART 219', 45, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard, DVD/Blu-ray, VCR', 'Classroom', 0),
-('ART 281', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 365', 35, 'Tables - Moveable', 'Classroom', 0),
-('ART 366', 200, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0),
-('ART 374', 33, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 376', 102, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0),
-('ART 382', 18, 'Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('ART 386', 95, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0),
-('ASC 130', 120, 'Tables', 'Classroom', 0),
-('ASC 140', 302, 'Tables', 'Classroom', 0),
-('ASC 165', 31, 'PC, A/V System, Projector', 'Computer Lab', 0),
-('EME 0050', 180, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone, DVD/Blu-ray', 'Classroom', 0),
-('EME 1101', 80, 'Tables,  Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('EME 1121', 72, 'Tables,  Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('EME 1151', 50, 'Tables,  Projector - Overhead transparency, A/V System, Microphone', 'Classroom', 0),
-('EME 1153', 48, 'Tables, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('EME 1202', 60, 'Tables - Moveable, Whiteboard', 'Classroom', 0),
-('EME 2111', 60, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('EME 2141', 70, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('EME 2181', 50, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('EME 2202', 30, 'Restricted', 'Classroom', 0),
-('EME 2205', 27, 'PC', 'Computer Lab', 0),
-('FIP 121', 70, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Microphone, DVD/Blu-ray', 'Classroom', 0),
-('FIP 124', 32, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('FIP 129', 21, 'PC', 'Computer Lab', 0),
-('FIP 133', 21, 'PC', 'Computer Lab', 0),
-('FIP 138', 30, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('FIP 139', 34, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('FIP 140', 30, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('FIP 204', 300, 'Tables', 'Classroom', 0),
-('FIP 239', 30, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('FIP 247', 20, 'Projector - Overhead transparency, A/V System, Whiteboard, Restricted', 'Labratory', 0),
-('FIP 250', 32, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('LIB 303', 25, 'Tables - Moveable', 'Classroom', 0),
-('LIB L302', 25, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('LIB L304', 45, 'Tables - Moveable', 'Classroom', 0),
-('LIB L305', 100, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0),
-('LIB L306', 45, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0),
-('LIB L312', 120, 'Tables, Projector - Overhead transparency, A/V System, Microphone', 'Classroom', 0),
-('LIB L317', 130, 'Tables, Projector - Overhead transparency, A/V System, Microphone', 'Classroom', 0),
-('SCI 126', 21, 'PC', 'Computer Lab', 0),
-('SCI 128', 30, 'MAC', 'Computer Lab', 0),
-('SCI 234', 31, 'PC', 'Computer Lab', 0),
-('SCI 236', 31, 'Tables - Moveable, Projector, A/V System, Whiteboard', 'Classroom', 0),
-('SCI 247', 80, 'Tables, Projector - Overhead transparency, A/V System, Whiteboard, Chalkboard', 'Classroom', 0),
-('SCI 333', 109, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0),
-('SCI 337', 104, 'Tables, Projector - Overhead transparency, A/V System, Whiteboard, Document Camera, Microphone', 'Classroom', 0),
-('SCI 396', 40, 'Tables - Moveable, Projector, A/V System', 'Classroom', 0);
+INSERT INTO `rooms` (`name`, `capacity`, `features`, `type`, `ignores`, `Count`, `stickies`) VALUES
+('ART 102', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 28, 0),
+('ART 103', 121, 'Projector - Overhead transparency, A/V System, Whiteboard, Microphone', 'Classroom', 0, 32, 1),
+('ART 104', 46, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 6, 1),
+('ART 106', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 1, 0),
+('ART 108', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 9, 0),
+('ART 110', 46, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('ART 112', 48, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 4, 0),
+('ART 114', 100, 'Tables, Projector - Overhead transparency, DVD/Blu-ray, A/V System, Microphone', 'Classroom', 0, 0, 0),
+('ART 202', 48, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 203', 24, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('ART 204', 48, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 206', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 208', 42, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 210', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 214', 93, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone, DVD/Blu-ray', 'Classroom', 0, 0, 0),
+('ART 215', 41, 'PC', 'Computer Lab', 0, 0, 0),
+('ART 218', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('ART 219', 45, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard, DVD/Blu-ray, VCR', 'Classroom', 0, 0, 0),
+('ART 281', 40, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 365', 35, 'Tables - Moveable', 'Classroom', 0, 0, 0),
+('ART 366', 200, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0, 0, 0),
+('ART 374', 33, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 376', 102, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0, 0, 0),
+('ART 382', 18, 'Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('ART 386', 95, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0, 0, 0),
+('ASC 130', 120, 'Tables', 'Classroom', 0, 0, 0),
+('ASC 140', 302, 'Tables', 'Classroom', 0, 0, 0),
+('ASC 165', 31, 'PC, A/V System, Projector', 'Computer Lab', 0, 0, 0),
+('EME 0050', 180, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone, DVD/Blu-ray', 'Classroom', 0, 0, 0),
+('EME 1101', 80, 'Tables,  Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('EME 1121', 72, 'Tables,  Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('EME 1151', 50, 'Tables,  Projector - Overhead transparency, A/V System, Microphone', 'Classroom', 0, 0, 0),
+('EME 1153', 48, 'Tables, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('EME 1202', 60, 'Tables - Moveable, Whiteboard', 'Classroom', 0, 0, 0),
+('EME 2111', 60, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('EME 2141', 70, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('EME 2181', 50, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('EME 2202', 30, 'Restricted', 'Classroom', 0, 0, 0),
+('EME 2205', 27, 'PC', 'Computer Lab', 0, 0, 0),
+('FIP 121', 70, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Microphone, DVD/Blu-ray', 'Classroom', 0, 0, 0),
+('FIP 124', 32, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('FIP 129', 21, 'PC', 'Computer Lab', 0, 0, 0),
+('FIP 133', 21, 'PC', 'Computer Lab', 0, 0, 0),
+('FIP 138', 30, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('FIP 139', 34, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('FIP 140', 30, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('FIP 204', 300, 'Tables', 'Classroom', 0, 0, 0),
+('FIP 239', 30, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('FIP 247', 20, 'Projector - Overhead transparency, A/V System, Whiteboard, Restricted', 'Labratory', 0, 0, 0),
+('FIP 250', 32, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('LIB 303', 25, 'Tables - Moveable', 'Classroom', 0, 0, 0),
+('LIB L302', 25, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('LIB L304', 45, 'Tables - Moveable', 'Classroom', 0, 0, 0),
+('LIB L305', 100, 'Tables - Moveable, Projector - Overhead transparency, A/V System', 'Classroom', 0, 0, 0),
+('LIB L306', 45, 'Tables - Moveable, Projector - Overhead transparency, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('LIB L312', 120, 'Tables, Projector - Overhead transparency, A/V System, Microphone', 'Classroom', 0, 0, 0),
+('LIB L317', 130, 'Tables, Projector - Overhead transparency, A/V System, Microphone', 'Classroom', 0, 0, 0),
+('SCI 126', 21, 'PC', 'Computer Lab', 0, 0, 0),
+('SCI 128', 30, 'MAC', 'Computer Lab', 0, 0, 0),
+('SCI 234', 31, 'PC', 'Computer Lab', 0, 0, 0),
+('SCI 236', 31, 'Tables - Moveable, Projector, A/V System, Whiteboard', 'Classroom', 0, 0, 0),
+('SCI 247', 80, 'Tables, Projector - Overhead transparency, A/V System, Whiteboard, Chalkboard', 'Classroom', 0, 0, 0),
+('SCI 333', 109, 'Tables, Projector - Overhead transparency, A/V System, Document Camera, Microphone', 'Classroom', 0, 0, 0),
+('SCI 337', 104, 'Tables, Projector - Overhead transparency, A/V System, Whiteboard, Document Camera, Microphone', 'Classroom', 0, 0, 0),
+('SCI 396', 40, 'Tables - Moveable, Projector, A/V System', 'Classroom', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roomschedule`
+--
+
+CREATE TABLE `roomschedule` (
+  `id` int(11) NOT NULL,
+  `stickies` int(11) DEFAULT '0',
+  `clientcount` int(11) NOT NULL DEFAULT '0',
+  `room` varchar(20) DEFAULT NULL,
+  `user` varchar(20) DEFAULT NULL,
+  `starttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `isbooked` tinyint(1) DEFAULT NULL,
+  `endtime` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `roomschedule`
+--
+
+INSERT INTO `roomschedule` (`id`, `stickies`, `clientcount`, `room`, `user`, `starttime`, `isbooked`, `endtime`) VALUES
+(72, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:07:24', NULL, '2017-08-30 07:07:24'),
+(73, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:08:03', NULL, '2017-08-30 07:08:03'),
+(74, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:07', NULL, '2017-08-30 07:08:07'),
+(75, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:08', NULL, '2017-08-30 07:08:08'),
+(76, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:08', NULL, '2017-08-30 07:08:08'),
+(77, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:08', NULL, '2017-08-30 07:08:08'),
+(78, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:09', NULL, '2017-08-30 07:08:09'),
+(79, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:09', NULL, '2017-08-30 07:08:09'),
+(80, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:09', NULL, '2017-08-30 07:08:09'),
+(81, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:10', NULL, '2017-08-30 07:08:10'),
+(82, 0, 1, 'ART 108', 'anonymous', '2017-08-30 06:08:11', NULL, '2017-08-30 07:08:11'),
+(83, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:08:17', NULL, '2017-08-30 07:08:17'),
+(84, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:08:20', NULL, '2017-08-30 07:08:20'),
+(85, 0, 1, 'ART 104', 'anonymous', '2017-08-30 06:08:24', NULL, '2017-08-30 07:08:24'),
+(86, 0, 1, 'ART 106', 'anonymous', '2017-08-30 06:08:25', NULL, '2017-08-30 07:08:25'),
+(87, 0, 1, 'ART 112', 'anonymous', '2017-08-30 06:08:30', NULL, '2017-08-30 07:08:30'),
+(88, 0, 1, 'ART 112', 'anonymous', '2017-08-30 06:08:30', NULL, '2017-08-30 07:08:30'),
+(89, 0, 1, 'ART 112', 'anonymous', '2017-08-30 06:08:31', NULL, '2017-08-30 07:08:31'),
+(90, 0, 1, 'ART 112', 'anonymous', '2017-08-30 06:08:31', NULL, '2017-08-30 07:08:31'),
+(91, 0, 1, 'ART 104', 'anonymous', '2017-08-30 06:11:03', NULL, '2017-08-30 07:11:03'),
+(92, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:08', NULL, '2017-08-30 07:11:08'),
+(93, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:10', NULL, '2017-08-30 07:11:10'),
+(94, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:10', NULL, '2017-08-30 07:11:10'),
+(95, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:10', NULL, '2017-08-30 07:11:10'),
+(96, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:11', NULL, '2017-08-30 07:11:11'),
+(97, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:11', NULL, '2017-08-30 07:11:11'),
+(98, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:11', NULL, '2017-08-30 07:11:11'),
+(99, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:11', NULL, '2017-08-30 07:11:11'),
+(100, 3, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:18', NULL, '2017-08-30 07:11:18'),
+(101, 1, 1, 'ART 103', 'anonymous', '2017-08-30 06:11:21', NULL, '2017-08-30 07:11:21'),
+(102, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:11:28', NULL, '2017-08-30 07:11:28'),
+(103, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:18', NULL, '2017-08-30 07:12:18'),
+(104, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:18', NULL, '2017-08-30 07:12:18'),
+(105, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:19', NULL, '2017-08-30 07:12:19'),
+(106, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:19', NULL, '2017-08-30 07:12:19'),
+(107, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:19', NULL, '2017-08-30 07:12:19'),
+(108, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:20', NULL, '2017-08-30 07:12:20'),
+(109, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:20', NULL, '2017-08-30 07:12:20'),
+(110, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:21', NULL, '2017-08-30 07:12:21'),
+(111, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:21', NULL, '2017-08-30 07:12:21'),
+(112, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:21', NULL, '2017-08-30 07:12:21'),
+(113, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:21', NULL, '2017-08-30 07:12:21'),
+(114, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:22', NULL, '2017-08-30 07:12:22'),
+(115, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:22', NULL, '2017-08-30 07:12:22'),
+(116, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:22', NULL, '2017-08-30 07:12:22'),
+(117, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:22', NULL, '2017-08-30 07:12:22'),
+(118, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:23', NULL, '2017-08-30 07:12:23'),
+(119, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:23', NULL, '2017-08-30 07:12:23'),
+(120, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:23', NULL, '2017-08-30 07:12:23'),
+(121, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:23', NULL, '2017-08-30 07:12:23'),
+(122, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:24', NULL, '2017-08-30 07:12:24'),
+(123, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:24', NULL, '2017-08-30 07:12:24'),
+(124, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:24', NULL, '2017-08-30 07:12:24'),
+(125, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:24', NULL, '2017-08-30 07:12:24'),
+(126, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:24', NULL, '2017-08-30 07:12:24'),
+(127, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:25', NULL, '2017-08-30 07:12:25'),
+(128, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:25', NULL, '2017-08-30 07:12:25'),
+(129, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:25', NULL, '2017-08-30 07:12:25'),
+(130, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:25', NULL, '2017-08-30 07:12:25'),
+(131, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:26', NULL, '2017-08-30 07:12:26'),
+(132, 0, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:26', NULL, '2017-08-30 07:12:26'),
+(133, 0, 1, 'ART 104', 'anonymous', '2017-08-30 06:12:27', NULL, '2017-08-30 07:12:27'),
+(134, 1, 1, 'ART 104', 'anonymous', '2017-08-30 06:12:28', NULL, '2017-08-30 07:12:28'),
+(135, 2, 1, 'ART 103', 'anonymous', '2017-08-30 06:12:30', NULL, '2017-08-30 07:12:30'),
+(136, 1, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:31', NULL, '2017-08-30 07:12:31'),
+(137, 2, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:33', NULL, '2017-08-30 07:12:33'),
+(138, 3, 1, 'ART 102', 'anonymous', '2017-08-30 06:12:34', NULL, '2017-08-30 07:12:34'),
+(139, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:24:13', NULL, '2017-08-30 07:24:13'),
+(140, 3, 1, 'ART 104', 'anonymous', '2017-08-30 06:24:33', NULL, '2017-08-30 07:24:33'),
+(141, 3, 1, 'ART 103', 'anonymous', '2017-08-30 06:24:33', NULL, '2017-08-30 07:24:33'),
+(142, 1, 1, 'ART 104', 'anonymous', '2017-08-30 06:24:34', NULL, '2017-08-30 07:24:34'),
+(143, 1, 1, 'ART 102', 'anonymous', '2017-08-30 06:24:40', NULL, '2017-08-30 07:24:40'),
+(144, 2, 1, 'ART 102', 'anonymous', '2017-08-30 06:27:29', NULL, '2017-08-30 07:27:29'),
+(145, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:28:40', NULL, '2017-08-30 07:28:40'),
+(146, 1, 1, 'ART 102', 'anonymous', '2017-08-30 06:29:38', NULL, '2017-08-30 07:29:38'),
+(147, 1, 1, 'ART 103', 'anonymous', '2017-08-30 06:29:49', NULL, '2017-08-30 07:29:49'),
+(148, 2, 1, 'ART 103', 'anonymous', '2017-08-30 06:30:38', NULL, '2017-08-30 07:30:38'),
+(149, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:30:44', NULL, '2017-08-30 07:30:44'),
+(150, 0, 1, 'ART 102', 'anonymous', '2017-08-30 06:30:47', NULL, '2017-08-30 07:30:47'),
+(151, 1, 1, 'ART 103', 'anonymous', '2017-08-30 06:30:49', NULL, '2017-08-30 07:30:49');
+
+--
+-- Triggers `roomschedule`
+--
+DELIMITER $$
+CREATE TRIGGER `update_count` AFTER DELETE ON `roomschedule` FOR EACH ROW UPDATE rooms, roomschedule SET rooms.Count = (Select Sum(roomschedule.clientcount) From roomschedule where rooms.name = roomschedule.room)
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_count_afterinsert` AFTER INSERT ON `roomschedule` FOR EACH ROW UPDATE rooms, roomschedule SET rooms.Count = (Select Sum(roomschedule.clientcount) From roomschedule where rooms.name = roomschedule.room)
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_stickies` AFTER INSERT ON `roomschedule` FOR EACH ROW UPDATE rooms, roomschedule SET rooms.stickies = NEW.stickies Where  rooms.name =  NEW.room
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -89603,6 +89736,18 @@ ALTER TABLE `rooms`
   ADD PRIMARY KEY (`name`);
 
 --
+-- Indexes for table `roomschedule`
+--
+ALTER TABLE `roomschedule`
+  ADD PRIMARY KEY (`id`) USING HASH;
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -89611,6 +89756,11 @@ ALTER TABLE `rooms`
 --
 ALTER TABLE `bookings`
   MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89384;
+--
+-- AUTO_INCREMENT for table `roomschedule`
+--
+ALTER TABLE `roomschedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 --
 -- Constraints for dumped tables
 --
