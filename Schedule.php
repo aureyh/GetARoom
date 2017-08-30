@@ -53,23 +53,44 @@
      results.done(function(data) {
       console.log(data);
       $("tbody").html(data);
-      $("button").click(function(){
-         button = $(this);
-         console.log(button);
-        var room = button.attr("id");
-        var currcount = button.attr("value");
-        console.log(currcount);
-      console.log("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-      var newcount = $.get("addOne.php?name=".concat(room).concat("&count=").concat(currcount));
-       newcount.done(function(newdata){console.log(newdata);button.parent().find('span').html(newdata)});
-       var plusonetocount = Number(currcount) + 1;
-       console.log("this is the new count: ".concat(plusonetocount) );
-       button.attr('value', plusonetocount);
-     });
+      $("select.sticky").change(function(){
+        var sticky = this;
+        var row = $(sticky.parentNode.parentNode);
+        var button = row.find('button.count');
+        button.click();
+        //BELOW IS CODE THAT IS FASTEr. ABOVE IS EASIER TO MAINTAIN.
+        /*console.log('button add to count',button);
+        console.log('select sticky',sticky);
+        var sticky_val = sticky.value;
+        console.log('current count',currcount);
+        console.log('sticky value', sticky_val);
+        //.concat("&count=").concat(currcount)
+        var newcount = $.get("addOne.php?name=".concat(room).concat("&sticky=").concat(sticky_val));
+        newcount.done(function(newdata){console.log(newdata);button.parent().find('span').html(newdata.count);sticky.children[newdata.sticky].selected = true;}, "json");
+        var currcolorofbutton = button.style.backgroundColor;
+        button.style.backgroundColor = "white";
+        setTimeout(function(){button.style.backgroundColor = currcolorofbutton;},400);*/
+      });
+      $("button.count").click(function(){
+        var button = $(this);
+        var row = $(this.parentNode.parentNode);
+        var sticky = row.find('select.sticky');
+        console.log('button add to count',button);
+        console.log('select sticky',sticky);
+        var sticky_val = sticky[0].value;
+        var room = row.attr("id");
+        console.log('sticky value', sticky_val);
+        //.concat("&count=").concat(currcount)
+        var newcount = $.getJSON("addOne.php?name=".concat(room).concat("&sticky=").concat(sticky_val));
+        newcount.done(function(newdata){console.log(newdata);button.parent().find('span').html(newdata.count);sticky[0].children[newdata.newsticky].selected = true;});
+        //var plusonetocount = Number(currcount) + 1;
+        //console.log("this is the new count: ".concat(plusonetocount) );
+        //button.attr('value', plusonetocount);
+       });
      });
      results.fail(function(jqXHR) {console.log("Error: " + jqXHR.status);});
      results.always(function() {console.log("done");});
-     }
+    }
     });
     </script>
   <h1>Get A Room: Search Results</h1>

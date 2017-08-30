@@ -48,7 +48,7 @@ function convertDayToNum($str){ #used to convert string day to number
     echo "START TIME: $input_time<br>";
 		//returns all buildings of all types
 		if($building === "all" && $type === "any"){
-		  $sql = "SELECT DISTINCT name,Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
+		  $sql = "SELECT DISTINCT name,Count,stickies FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime <= ? and endTime >= ?)) and ignores is FALSE ";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddd", $VALID_DATE,$input_time_decimal,$input_time_decimal);
 			$ps->execute();
@@ -58,7 +58,7 @@ function convertDayToNum($str){ #used to convert string day to number
 		//returns specific building of all types
 		} elseif ($building !== "all" && $type === "any"){
 			$building = "$building%";
-			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$sql = "SELECT DISTINCT name,Count,stickies FROM rooms WHERE name LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("sddd",$building,$VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
@@ -66,7 +66,7 @@ function convertDayToNum($str){ #used to convert string day to number
 		//returns all buildings of specific type
 		} elseif ($building === "all" && $type !== "any"){
 			$type = "$type%";
-			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE type LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$sql = "SELECT DISTINCT name,Count,stickies FROM rooms WHERE type LIKE ?  and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("sddd",$type,$VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
@@ -75,7 +75,7 @@ function convertDayToNum($str){ #used to convert string day to number
 		}elseif ($building !== "all" && $type !== "any"){
 			$building = "$building%";
 			$type = "$type%";
-			$sql = "SELECT DISTINCT name,Count FROM rooms WHERE name LIKE ? and type LIKE ? and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
+			$sql = "SELECT DISTINCT name,Count,stickies FROM rooms WHERE name LIKE ? and type LIKE ? and ignores is FALSE and name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  (startTime - 0.5 < ? and endTime > ?))";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ssddd",$building,$type,$VALID_DATE,$startTIME,$startTIME);
 			$ps->execute();
@@ -122,7 +122,7 @@ function convertDayToNum($str){ #used to convert string day to number
       }
 	  //returns all buildings and all typs
       if($building === "all" && $type === "any"){
-			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
+			$sql = "SELECT DISTINCT name, Count,stickies FROM rooms WHERE name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and ignores is FALSE ";
   			$ps = $connection->prepare($sql);
   			$ps->bind_param("ddddddd", $VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME);
   			$ps->execute();
@@ -130,7 +130,7 @@ function convertDayToNum($str){ #used to convert string day to number
 		//returns specific building of all types
   		} elseif ($building !== "all" && $type === "any"){
 			$building = "$building%";
-			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
+			$sql = "SELECT DISTINCT name, Count,stickies FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and ignores is FALSE";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building);
   			$ps->execute();
@@ -138,7 +138,7 @@ function convertDayToNum($str){ #used to convert string day to number
 		//returns all buildings of specific type
 		} elseif ($building === "all" && $type !== "any"){
 			$type = "$type%";
-			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and type LIKE ? and ignores is FALSE";
+			$sql = "SELECT DISTINCT name, Count,stickies FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and type LIKE ? and ignores is FALSE";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("ddddddds",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$type);
   			$ps->execute();
@@ -147,7 +147,7 @@ function convertDayToNum($str){ #used to convert string day to number
 		} elseif ($building !== "all" && $type !== "any"){
 			$building = "$building%";
 			$type = "$type%";
-			$sql = "SELECT DISTINCT name, Count FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and type LIKE ? and ignores is FALSE";
+			$sql = "SELECT DISTINCT name, Count,stickies FROM rooms WHERE  name NOT IN (Select location FROM BOOKINGS WHERE dates = ? and  ((startTime <= ? and ? <= endTime) or (startTime <= ? and ? <= endTime) or (? < startTime and ? > startTime))) and name LIKE ? and type LIKE ? and ignores is FALSE";
 			$ps = $connection->prepare($sql);
 			$ps->bind_param("dddddddss",$VALID_DATE,$startTIME,$startTIME,$endTIME,$endTIME,$startTIME,$endTIME,$building,$type);
   			$ps->execute();

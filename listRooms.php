@@ -58,7 +58,7 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
 		} else{
 					$results = returnList_both( $start, $end, $date, $building, $type,$connection);
         }
-    $results -> bind_result($location, $count);
+    $results -> bind_result($location, $count,$sticky);
     #if results exist, print results.
     $connection2 = new mysqli($servername, $username, $password, $dbname);
     $sql2 = "Delete From roomschedule WHERE endtime <= Now()";
@@ -72,17 +72,53 @@ preg_match_all('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[1-9]|[12][0-9]|3[01])
     if($results -> fetch()){
     do{ //will display each room that matches criteria
 			//and a occupancy button, request button and comment button.
-      echo "<td class = 'RoomName'><a href = 'roomCalendar.php?room=$location'>Room: ".$location."</a></td>
-      <td class = 'OccCount'> <span>$count</span>  <button id = '$location' value = $count class='ui-btn ui-btn-inline'>+1</button> </td>
+      echo "<tr id = '$location'><td class = 'RoomName'><a href = 'roomCalendar.php?room=$location'>Room: ".$location."</a></td>
+      <td class = 'OccCount'> <span>$count</span>  <button id = '$location-count' value = $count class='count ui-btn ui-btn-inline'>+1</button> </td>
       <td>
 
       <label for='select-native-4' class='ui-hidden-accessible' data-inline='true'>Native select:</label>
-<select name='select-native-4' id='select-native-4'>
-    <option value='small'>Indifferent</option>
-    <option value='small'>Quiet</option>
-    <option value='medium'>Social</option>
-    <option value='large'>Presentation</option>
-</select>
+<select name='select-native-4' class='sticky select-native-4' id = '$location-sticky'>";
+
+
+      switch ($sticky) {
+        case 0:
+            echo "<option value=0 selected>Indifferent</option>
+            <option value=1>Quiet</option>
+            <option value=2>Social</option>
+            <option value=3>Presentation</option>";
+            break;
+        case 1:
+            echo "<option value=0 >Indifferent</option>
+            <option value=1 selected>Quiet</option>
+            <option value=2>Social</option>
+            <option value=3>Presentation</option>";
+            break;
+
+        case 2:
+            echo "<option value=0 >Indifferent</option>
+            <option value=1 >Quiet</option>
+            <option value=2 selected>Social</option>
+            <option value=3>Presentation</option>";
+            break;
+        case 3:
+          echo "<option value=0 >Indifferent</option>
+          <option value=1 >Quiet</option>
+          <option value=2 >Social</option>
+          <option value=3 selected>Presentation</option>";
+          # code...
+          break;
+
+        default:
+            echo "<option value=0 selected>Indifferent</option>
+            <option value=1>Quiet</option>
+            <option value=2>Social</option>
+            <option value=3>Presentation</option>";
+          # code...
+          break;
+      }
+
+
+      echo "</select>
       </td>
       <td><a href = 'comments.php' class='ui-btn ui-btn-inline'>Comment</a></td></tr>";
     }while($results -> fetch());
@@ -99,8 +135,9 @@ echo "Oops something went wrong!
   <br>
   <p><a href = 'HomePage.php'>But try again?</a></p>";
 }finally{ #always close.
-      $connection -> close();
       $results -> close();
+      $connection -> close();
+      $connection2 -> close();
 }
 //}
 ?>
